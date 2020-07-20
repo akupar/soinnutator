@@ -102,17 +102,27 @@
 	}
 	return res;
     }
+
+    function unionAll(arrays) {
+        return arrays.reduce(union_arrays, []);
+    }
+
+    function intersectAll(arrays) {
+        return arrays.reduce(intersect_safe, []);
+    }
     
     function split_string(str, breaks, ank) {
 	var out = [];
 	var start = 0;
-	var piece;
+
 	breaks.forEach(function (brk) {
-	    piece = str.substring(start, brk);
-	    out.push(piece);
+	    out.push(str.substring(start, brk));
 	    start = brk;
 
 	});
+        
+        out.push(str.substring(start));
+        
 	return out;
     }
 
@@ -125,45 +135,43 @@
         }
     }
 
-    function getPhraseItem(chordsPart, lyricsPart, addBar) {
-        if ( chordsPart.trim() === "#" ) {
-	    var $table = $('<table class="phrase-item"></table>');
-	    var $lyricsRow = $('<tr class="lyrics"><td>' + lyricsPart + '</td></tr>');
-	    $table.append([$lyricsRow]);
-            return $table;
+    function getPhraseItem(rowsOfPart, addBar) {
+	var $table = $('<table class="phrase-item"></table>');
+        var $rows = rowsOfPart.map(function (rowOfPart, index) {
+            console.log("row of part:", rowOfPart);
+            return $('<tr class="line-' + index + '"></tr>').append(getTd(rowOfPart, addBar));
+        });
             
-        } else if ( lyricsPart.trim() === "#" ) {
-	    var $table = $('<table class="phrase-item"></table>');
-	    var $chordsRow = $('<tr class="chords"></tr>');
-            var $chordsTd = getTd(chordsPart, addBar);
-	    $table.append([$chordsRow.append($chordsTd)]);
-            return $table;
-            
-        } else {
-	    var $table = $('<table class="phrase-item"></table>');
-	    var $chordsRow = $('<tr class="chords"></tr>');
-	    var $lyricsRow = $('<tr class="lyrics"></tr>');
-            var $chordsTd = getTd(chordsPart, addBar);
-            var $lyricsTd = getTd(lyricsPart, addBar);
-	    $table.append([$chordsRow.append($chordsTd), $lyricsRow.append($lyricsTd)]);
-            return $table;
-        }
+	$table.append($rows);
+        return $table;
     }
 
     function buildLine(acc, elem) {
 	var breaks = elem.breaks;
-	var s1 = split_string(elem.r1, breaks);
-	var s2 = elem.r2 ? split_string(elem.r2, breaks, true) : "";
+        var parts = elem.rows.map(function (row) { return split_string(row, breaks); });
 	var i;
         var bar = false;
-        
-	s1.forEach(function (chordsPart, index) {
-	    var lyricsPart = s2[index].replace("@", "&nbsp;");
+        var partGroups = [];
 
-            if ( chordsPart === "|" && lyricsPart === "|" ) {
+        for ( partIndex = 0; partIndex < parts[0].length; partIndex++ ) {
+            partGroups[partIndex] = [];
+            for ( rowIndex = 0; rowIndex < parts.length; rowIndex++ ) {
+                partGroups[partIndex][rowIndex] = parts[rowIndex][partIndex];
+            }
+        }
+        
+	partGroups.forEach(function (linesForParts, index) {
+	    linesForParts = linesForParts.map(
+                function (lineForPart) {
+                    // Merkki @ toimii näkymättömänä ankkurina.
+                    return lineForPart.replace("@", "&nbsp;");
+                }
+            );
+
+            if ( linesForParts.every(function(lineForPart) { return lineForPart === "|"; }) ) {
                 bar = true;
             } else {
-                var $table = getPhraseItem(chordsPart, lyricsPart, bar);
+                var $table = getPhraseItem(linesForParts, bar);
 	        acc.push($table);
                 bar = false;
             }
@@ -174,48 +182,42 @@
     }
 
 
-    function handleLinePair(acc, lines) {
-	var line_pairs = [];
-	var index = 0;
-	var counter = 0;
-	lines.forEach(function (line) {
+    function handleLineGroup(acc, lines) {
+	var lineGroups = [];
+        
+	lines.forEach(function (line, index) {
 	    console.log("rivi:", line);
 	    if ( line !== "" ) {
-		counter = 0;
-		if ( index % 2 === 0 ) {
-		    line_pairs.push({ "r1" : line, "r2" : null, "breaks" : [] });
+		if ( index === 0 ) {
+		    lineGroups.push({ "rows" : [ line ], "breaks" : [] });
 		} else {
-		    line_pairs[line_pairs.length - 1].r2 = line;
+		    lineGroups[lineGroups.length - 1].rows[index] = line;
 		}
-		index++;
 	    }
 	});
 
-	line_pairs.forEach(function (pair) {
-	    var b_r1 = get_breaks(pair.r1);
-	    var b_r2 = get_breaks(pair.r2);
-	    var b_f1 = get_forced_breaks(pair.r1);
-            var b_f2 = get_forced_breaks(pair.r2);
-            var b_f = union_arrays(b_f1, b_f2);
+	lineGroups.forEach(function (pair) {
+	    var natBreaksPerRow = pair.rows.map(get_breaks);
+	    var forcedBreaksPerRow = pair.rows.map(get_forced_breaks);
+            var combinedForcedBreaks = unionAll(forcedBreaksPerRow);
+            var combinedNaturalBreaks = intersectAll(natBreaksPerRow);
 
-	    pair.breaks = union_arrays(intersect_safe(b_r1, b_r2), b_f);
+	    pair.breaks = union_arrays(combinedNaturalBreaks, combinedForcedBreaks);
 
-            var l_r1 = pair.r1.length;
-            var l_r2 = pair.r2 ? pair.r2.length : 0;
-	    pair.breaks.push(Math.max(l_r1, l_r2));
+            var lengths = pair.rows.map(function (row) { return row.length; });
 	});
 	
 
 
-	var html_list = line_pairs.reduce(buildLine, []);
+	var html_list = lineGroups.reduce(buildLine, []);
 
-	//alert(JSON.stringify(line_pairs));
+	//alert(JSON.stringify(lineGroups));
 	acc.push($('<p></p>').append(html_list));
 
 	return acc;
     }
 
-    function handleLineGroup(acc, text) {
+    function handleTextBlock(acc, text) {
         console.log("handleGroup:", text);
         if ( text === "" ) {
             return acc;
@@ -223,30 +225,28 @@
 	var lines = text.split("\n").filter(function (line) { return line.trim() !== ""; });
         if ( lines.length === 1 ) {
             return acc.concat($("<p>" + text + "</p>"));
-        } else if ( lines.length === 2 ) {
-            return handleLinePair(acc, lines);
         } else {
-            alert("Too many lines in group:\n" + text);
+            return handleLineGroup(acc, lines);
         }
     }
 
     function handleSection(text) {
         var $section = $('<div class="section"></div>');
 
-	var lineGroups = text.split(/\n\n\n*/).filter(function (text) { return text !== "" });
+	var textBlocks = text.split(/\n\n\n*/).filter(function (text) { return text !== "" });
 
-        if ( lineGroups.length === 0 ) {
+        if ( textBlocks.length === 0 ) {
             return $section;
         }
 
-	var m = lineGroups[0].match(/^\n*#section ?(.*)/);
+	var m = textBlocks[0].match(/^\n*#section ?(.*)/);
 	if ( m ) {
 	    $section.append($("<h2></h2>").text(m[1]));
             $section.addClass(escapeClassName(m[1]));
-	    lineGroups.shift();
+	    textBlocks.shift();
 	}
 
-	var p_elems = lineGroups.reduce(handleLineGroup, []);
+	var p_elems = textBlocks.reduce(handleTextBlock, []);
         $section.append(p_elems);
 
         return $section;

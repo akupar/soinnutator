@@ -29,8 +29,9 @@ h1, h2 {
     margin-top: 5ex;
 }
 
-.chords {
+.line-0 {
     font-weight: bold;
+    color: blue;
 }
 
 td {
