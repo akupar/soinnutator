@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fi" dir="ltr" class="client-nojs">
+  <head>
+    <meta charset="UTF-8" /><title>Soinnuttaattori</title>
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="libs/FileSaver.js"></script>    
+    <script type="text/javascript" src="test.js"></script>
+
+    <link rel="stylesheet" href="test.css">
+    <link id="selected-style-sheet" rel="stylesheet" href="2-column.css">
+    
+  </head>
+  <body>
+    <div id="rendered">
+    </div>
+    <div id="editing">
+      <div id="help">
+        <h2>Syntax</h2>
+        <p>
+          The syntax is composed of groups of one or two lines delimited by an empty line.
+        </p>
+
+        <p>
+          1. When there are two lines, the top row is for chords and bottom row for
+          lyrics. When there are two lines the lines are aligned on matching spaces.
+        </p>
+        
+        <p>      
+          A pipe character (|) has a special meaning. When pipe characters align, a vertical bar is displayed in their place.
+        </p>
+        
+        <pre>
+          | F                 | Em              | G        |
+          This- _ | time I have real- | ly led my-self- | _ astray |
+        </pre>
+
+        <p>
+          When the group has only one line, it is shown as is except when it's one of the following pragmas.
+        </p>
+        <pre>
+          (no drums)
+        </pre>
+        
+        <p>
+          <code>#song <i>Song name</i></code><br/>
+          Set the title of the song.
+        </p>
+        
+        <p>
+          <code>#section <i>Section name</i></code><br/>
+          Start a new section, for example verse or chorus. Lines of a section are kept together when possible. Section ends when another begins or at the end of text.
+        </p>
+
+        <p>      
+          See <a href="examples.html">examples</a>.
+        </p>
+      </div>
+      <input id="load-button" type="file" size="10"/>
+      <button id="save-button">Save</button>
+      <button id="print-button" onclick="print();">Print</button>
+      <button id="render-button">Render</button>
+      <button id="export-html-button">Export HTML</button>      
+      <textarea>
+</textarea>
+    </div>
+  </body>
+</html>

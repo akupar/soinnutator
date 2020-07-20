@@ -1,0 +1,54 @@
+body {
+    background-color: lightgray;
+}
+
+#rendered {
+    margin: auto;
+    padding: 2em;
+    background-color: white;
+}
+
+table.phrase-item {
+    display: inline-table;
+    border-collapse: collapse;
+}
+
+td.bar {
+    border-left: solid 1px black;
+}
+
+#editing {
+    background-color: white;
+    margin: 0.5em 0;
+    padding: 1em;
+}
+
+textarea {
+    width: 100%;
+    height: 40em;
+}
+
+#help {
+    display: none;
+}
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #rendered {
+        margin: 0;
+        padding: 0;
+    }
+
+    #editing {
+	display: none;
+    }
+    
+    textarea {
+	display: none;
+    }
+}
+
