@@ -17,6 +17,10 @@ td.bar {
     border-left: solid 1px black;
 }
 
+td.bar-2 {
+    border-left: dotted 1px gray;
+}
+
 #editing {
     background-color: white;
     margin: 0.5em 0;
