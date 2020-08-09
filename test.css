@@ -33,7 +33,7 @@ textarea {
 }
 
 #help {
-    display: none;
+    display: block;
 }
 
 @media print {

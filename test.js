@@ -366,12 +366,29 @@
         saveAs(blob, filename);
     }
 
+    function toggleHelp() {
+        if ( $("#toggle-help-button").text() === "Hide Help" ) {
+            $("#help").slideUp();
+            $("#toggle-help-button").text("Show Help");
+            localStorage.setItem("show-help", "no");
+        } else {
+            $("#help").slideDown();
+            $("#toggle-help-button").text("Hide Help");
+            localStorage.setItem("show-help", "yes");            
+        }
+    }
+
     jQuery(document).ready(function () {
         $("#save-button").on('click', saveSourceFile);
         $("#load-button").on('change', loadSourceFile);
         $("#render-button").on('click', render);
         $("#export-html-button").on('click', exportHtml);
-        
+        $("#toggle-help-button").on('click', toggleHelp);
+        if ( localStorage.getItem("show-help") === "no" ) {
+            $("#toggle-help-button").text("Show Help");
+            $("#help").hide();
+        }
+            
         render();
     });
 
