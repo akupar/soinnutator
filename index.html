@@ -8,8 +8,20 @@
     <script type="text/javascript" src="index.js"></script>
 
     <link rel="stylesheet" href="index.css">
-    <link id="selecte-style-sheet" rel="stylesheet" href="2-column.css">
-    
+    <link
+      id="columns"
+      class="extra-style-sheet"
+      data-description="Columns"
+      rel="stylesheet"
+      data-href="2-column.css"
+      >
+    <link
+      id="no-columns"
+      class="extra-style-sheet"
+      data-description="No columns"
+      rel="stylesheet"
+      data-href="no-columns.css"
+      >
   </head>
   <body>
     <div id="rendered">
@@ -72,6 +84,7 @@
       <button id="print-button" onclick="print();">Print</button>
       <button id="render-button">Render</button>
       <button id="export-html-button">Export HTML</button>
+      <label for="style-sheet-selector">Style Sheet:</label> <select id="style-sheet-selector"></select>
       <button id="toggle-help-button">Hide Help</button>      
       <p style="float: right;">
                 Copy-paste here: |¦♯♭♫♪𝄉𝄊𝄋𝄌𝄎

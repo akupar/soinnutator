@@ -378,7 +378,56 @@
         }
     }
 
+    function disableExtraStyleSheets() {
+        var $styleSheets = $(".extra-style-sheet");
+        
+        $styleSheets.each(function () {
+            var $styleSheet = $(this);
+
+            var href = $styleSheet.attr("href");
+            $styleSheet.attr("data-href", href);
+            $styleSheet.attr("href", "");
+            
+        });
+
+    }
+
+    function populateStyleSheetSelector() {
+        var $styleSheets = $(".extra-style-sheet");
+        var $styleSheetSelect = $("#style-sheet-selector");
+        var selectedStyleSheet = localStorage.getItem("style-sheet") || $styleSheets.first().attr("id");
+        
+        $styleSheets.each(function () {
+            var $styleSheet = $(this);
+            
+            $styleSheetSelect.append(
+                $("<option>", {
+                    value: $styleSheet.attr("id"),
+                    text: $styleSheet.attr("data-description") || $styleSheet.attr("id"),
+                    selected: (selectedStyleSheet === $styleSheet.attr("id"))
+                })
+            );
+        });
+    }
+
+    function changeStyleSheet() {
+        var $extraStyleSheets = $(".extra-style-sheet");
+        var $styleSheetSelect = $("#style-sheet-selector");        
+        var selectedStyleSheetId = $styleSheetSelect.val();
+        var $selectedStyleSheet = $("#" + selectedStyleSheetId);
+
+        localStorage.setItem("style-sheet", selectedStyleSheetId);
+
+        $extraStyleSheets.attr("href", "");
+        
+        $selectedStyleSheet.attr("href", $selectedStyleSheet.attr("data-href"));
+    }
+            
     jQuery(document).ready(function () {
+        //disableExtraStyleSheets();
+        populateStyleSheetSelector();
+        changeStyleSheet();
+        
         $("#save-button").on('click', saveSourceFile);
         $("#load-button").on('change', loadSourceFile);
         $("#render-button").on('click', render);
@@ -388,6 +437,7 @@
             $("#toggle-help-button").text("Show Help");
             $("#help").hide();
         }
+        $("#style-sheet-selector").on('change', changeStyleSheet);
             
         render();
     });

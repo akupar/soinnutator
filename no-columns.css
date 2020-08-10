@@ -1,10 +1,4 @@
 #rendered {
-    column-width: 30em;
-    column-count: 5; /* Max number of columns.*/
-    column-gap: 2em;
-    column-rule-width: 5px;
-    column-rule-style: dotted;
-    column-rule-color: gray;
     font-size: 100%;
 }
 
