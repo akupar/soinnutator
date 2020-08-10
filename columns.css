@@ -6,6 +6,7 @@
     column-rule-style: dotted;
     column-rule-color: gray;
     font-size: 100%;
+    margin-left: 0.5em; /* Printing to pdf leaves the first bar out otherwise. */
 }
 
 .phrase-item {
