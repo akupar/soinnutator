@@ -8,7 +8,7 @@
     <script type="text/javascript" src="index.js"></script>
 
     <link rel="stylesheet" href="index.css">
-    <link id="selected-style-sheet" rel="stylesheet" href="2-column.css">
+    <link id="selecte-style-sheet" rel="stylesheet" href="2-column.css">
     
   </head>
   <body>
@@ -16,6 +16,8 @@
     </div>
     <div id="editing">
       <div id="help">
+        <strong>Soinnutator</strong> is a program to write nicely formatted chord sheets for songs. <a href="https://github.com/akupar/soinnutator">Source</a>.
+        
         <h2>Syntax</h2>
         <p>
           The syntax is composed of groups of one or two lines delimited by an empty line.
@@ -36,14 +38,12 @@
         </pre>
 
         <p>      
-          You can use broken pipe character (¦) to insert another type of break.
+          A broken pipe character (¦) works similarly if you want to make two kinds of lines.
+        </p>
         
         <p>
           When the group has only one line, it is shown as is except when it's one of the following pragmas.
         </p>
-        <pre>
-          (no drums)
-        </pre>
         
         <p>
           <code>#song <i>Song name</i></code><br/>
@@ -52,7 +52,7 @@
         
         <p>
           <code>#section <i>Section name</i></code><br/>
-          Start a new section, for example verse or chorus. Lines of a section are kept together when possible. Section ends when another begins or at the end of text.
+          Start a new section, for example verse or chorus. Lines of a section are kept together when possible in the printout. A section ends when another begins or at the end of text.
         </p>
 
         <p>
