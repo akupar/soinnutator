@@ -1,3 +1,8 @@
+.spacer {
+    display: inline-block;
+    width: 1ch;
+}
+
 body {
     background-color: lightgray;
 }
@@ -8,18 +13,41 @@ body {
     background-color: white;
 }
 
-table.phrase-item {
+.right {
+    float: right;
+}
+
+h1 > .right {
+    font-weight: normal;
+}
+
+table.measure-block {
     display: inline-table;
     border-collapse: collapse;
 }
 
+td {
+    padding: 0.5em 0;
+}
+
 td.bar {
     border-left: solid 1px black;
+    padding-left: 0.5ch;
 }
 
 td.bar-2 {
     border-left: dotted 1px gray;
+    padding-left: 0.5ch;
 }
+
+td.bar-space {
+    padding-left: 0.5ch;
+}
+
+.bar-end {
+    margin-right: 0.5ch;
+}
+
 
 #editing {
     background-color: white;
@@ -34,6 +62,12 @@ textarea {
 
 #help {
     display: block;
+}
+
+.line-0 {
+    font-weight: 600;
+    font-family: "Arial", sans-serif;
+    color: #101010;
 }
 
 @media print {

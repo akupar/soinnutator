@@ -9,18 +9,12 @@
     margin-left: 0.5em; /* Printing to pdf leaves the first bar out otherwise. */
 }
 
-.phrase-item {
+.measure-block {
     line-height: 0.8em;    
 }
 
 tr {
     /*height: 0.125em;*/
-}
-
-#rendered p {
-
-    line-height: 3em;
-    margin: 0;
 }
 
 h1, h2 {
@@ -30,33 +24,13 @@ h1, h2 {
     margin-top: 5ex;
 }
 
-.line-0 {
-    font-weight: bold;
-    color: black;
-}
 
-td {
-    padding: 0.3em 0.5em;
-}
 
 p > table:first-child {
-    margin-left: -0.5em;
-}
-
-td.bar {
-    border-left: solid 1px gray;
+    /*margin-left: -0.5em;*/
 }
 
 .section {
     break-inside: avoid;
 }
 
-.Chorus {
-    margin-top: 1em;
-    border-radius: 0.5em;
-    padding: 1em;
-}
-
-.Chorus > h2 {
-    margin-top: 0.5em;
-}

@@ -4,7 +4,9 @@
     <meta charset="UTF-8" /><title>Soinnuttaattori</title>
 
     <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="libs/FileSaver.js"></script>    
+    <script type="text/javascript" src="libs/FileSaver.js"></script>
+    <script type="text/javascript" src="parser.js"></script>
+    <script type="text/javascript" src="builder.js"></script>    
     <script type="text/javascript" src="index.js"></script>
 
     <link rel="stylesheet" href="index.css">
@@ -83,9 +85,11 @@
       <button id="save-button">Save</button>
       <button id="print-button" onclick="print();">Print</button>
       <button id="render-button">Render</button>
+      <button id="test-button">Test parser</button>
       <button id="export-html-button">Export HTML</button>
       <label for="style-sheet-selector">Style Sheet:</label> <select id="style-sheet-selector"></select>
-      <button id="toggle-help-button">Hide Help</button>      
+      <button id="toggle-help-button">Hide Help</button>
+      <label>Font size: <input type="number" min="0" max="1000" value="100" step="10" id="font-size-input" /> %</label>
       <p style="float: right;">
                 Copy-paste here: |¦♯♭♫♪𝄉𝄊𝄋𝄌𝄎
       </p>
