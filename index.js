@@ -144,6 +144,8 @@
         $extraStyleSheets.attr("href", "");
         
         $selectedStyleSheet.attr("href", $selectedStyleSheet.attr("data-href"));
+
+        changeFontSize();
     }
 
     function changeFontSize() {

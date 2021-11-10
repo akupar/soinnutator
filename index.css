@@ -48,11 +48,15 @@ td.bar-space {
     margin-right: 0.5ch;
 }
 
+input[type="number"] {
+    width: 4em;
+}
 
-#editing {
-    background-color: white;
+#editing, #render-toolbar {
+    background-color: lightgoldenrodyellow;
     margin: 0.5em 0;
     padding: 1em;
+    outline: solid goldenrod 1px;
 }
 
 textarea {
@@ -70,6 +74,11 @@ textarea {
     color: #101010;
 }
 
+#rendered {
+    box-shadow: -4px 4px darkgrey;
+    outline: solid black 1px;
+}
+
 @media print {
     body {
         margin: 0;
@@ -79,13 +88,11 @@ textarea {
     #rendered {
         margin: 0;
         padding: 0;
+        ouline: none;
+        box-shadow: none;
     }
 
-    #editing {
-	display: none;
-    }
-    
-    textarea {
+    .no-print {
 	display: none;
     }
 }
