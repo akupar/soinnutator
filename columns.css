@@ -5,28 +5,8 @@
     column-rule-width: 5px;
     column-rule-style: dotted;
     column-rule-color: gray;
-    font-size: 100%;
+    /*font-size: 100%;*/
     margin-left: 0.5em; /* Printing to pdf leaves the first bar out otherwise. */
-}
-
-.measure-block {
-    line-height: 0.8em;    
-}
-
-tr {
-    /*height: 0.125em;*/
-}
-
-h1, h2 {
-    font-size: 90%;
-    font-family: sans-serif;
-    margin-bottom: 0;
-}
-
-
-
-p > table:first-child {
-    /*margin-left: -0.5em;*/
 }
 
 .section {

@@ -47,13 +47,15 @@
                 return piece;
             }
         });
-            
+
+        var $td = $('<td></td>').append(domTexts);
+        
         console.log("domtexts:", domTexts);
-        if ( blockData.bar ) {
-            return $('<td class="' + getBarClass(blockData.bar) + '"></td>').append(domTexts);
-        } else {
-            return $('<td></td>').append(domTexts);
+        if ( blockData.index === 0 ) {
+            $td.addClass("chord");
         }
+
+        return $td;
     }
 
     
@@ -63,10 +65,15 @@
         if ( measureBlock.spaceAfter ) {
             $table.addClass("bar-end");
         }
+
+        if ( measureBlock.rows[0].bar ) {
+            $table.addClass(getBarClass(measureBlock.rows[0].bar));
+        }
         
         var $rows = measureBlock.rows.map(function (row) {
             console.log("row of part:", row);
-            return $('<tr class="line-' + row.index + '"></tr>')
+            return $('<tr></tr>')
+                .addClass("line-" + row.index)
                 .append(getTd(row));
         });
         

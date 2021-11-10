@@ -24,19 +24,26 @@ h1 > .right {
 table.measure-block {
     display: inline-table;
     border-collapse: collapse;
+    line-height: 0.8em;    
 }
 
 td {
     padding: 0.5em 0;
 }
 
-td.bar {
+table.bar {
     border-left: solid 1px black;
+}
+
+table.bar-2 {
+    border-left: dotted 1px gray;
+}
+
+table.bar td {
     padding-left: 0.5ch;
 }
 
-td.bar-2 {
-    border-left: dotted 1px gray;
+table.bar-2 td {
     padding-left: 0.5ch;
 }
 
@@ -99,3 +106,9 @@ textarea {
     }
 }
 
+
+h1, h2 {
+    font-size: 90%;
+    font-family: sans-serif;
+    margin-bottom: 0;
+}
