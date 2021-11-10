@@ -1,5 +1,8 @@
 (function () {
-
+    var renderHooks = {
+        
+    };
+    
     function prepareParseTree(parsedDoc) {
         if ( ! parsedDoc.sections ) {
             return;
@@ -40,6 +43,10 @@
 	    $("title").text(parsedDoc.rightTitle);
         } else {
             $("title").text("Untitled");
+        }
+
+        for ( var hookKey in renderHooks ) {
+            renderHooks[hookKey]();
         }
     }
 
@@ -153,14 +160,38 @@
         $div.css({ fontSize: $('#font-size-input').val() + "%" });
     }
 
+
+    function fancifyChords() {
+        $('.chord').each(function () {
+            $(this).text(
+                $(this).text()
+                       .replaceAll("#", "♯")
+                       .replaceAll("b", "♭")
+                       .replace(/([A-H][♯♭]?)([^♯♭ ])/, '$1 $2') // hair space U+200A between 
+                       .replace(/(sus|add|dim|no|non)(.)/, '$1 $2')                
+            );
+        });
+    }
+    
+    function toggleFancyChords(event) {
+        var $elem = $(event.target);
+        console.log("fancify event.target:", event.target);
+        if ( $elem.prop('checked') === true ) {
+            renderHooks["fancify chords"] =  fancifyChords;
+        } else {
+            delete renderHooks["fancify chords"]
+        }
+        render();
+    }
+
     function testParser() {
         var text = $("textarea").val();
         var parsedDoc = window.parser.parse(text);
         prepareParseTree(parsedDoc);
         alert(JSON.stringify(parsedDoc, null, 2));
-            
+        
     }
-            
+    
     jQuery(document).ready(function () {
         //disableExtraStyleSheets();
         populateStyleSheetSelector();
@@ -178,8 +209,13 @@
         $("#style-sheet-selector").on('change', changeStyleSheet);
 
         $("#font-size-input").on('change', changeFontSize);
+        $("#fancy-chords-checkbox").on('change', toggleFancyChords);
 
         $("#test-button").on('click', testParser);
+
+        if ( $('#fancy-chords-checkbox').prop('checked') === true ) {
+            renderHooks["fancify chords"] =  fancifyChords;
+        }
         
         render();
     });
