@@ -36,16 +36,19 @@
     </div>
     <div id="editing" class="no-print">
       <div id="help">
-        <strong>Soinnutator</strong> is a program to write nicely formatted chord sheets for songs. <a href="https://github.com/akupar/soinnutator">Source</a>.
+        <p>
+          With <strong>Soinnutator</strong> you can create nicely formatted chord sheets for songs. <a href="https://github.com/akupar/soinnutator">Source code</a>.
+        </p>
         
         <h2>Syntax</h2>
         <p>
-          The syntax is composed of groups of one or two lines delimited by an empty line.
+          The syntax is composed of groups of one or more lines delimited by an empty line.
         </p>
 
         <p>
-          1. When there are two lines, the top row is for chords and bottom row for
-          lyrics. When there are two lines the lines are aligned on matching spaces.
+          When there are two lines, the top row is for chords and bottom row for
+          lyrics. When the group has only one line, it is assumed to be the chord line.
+          With two or more lines, the lines are aligned where there are <em>two</em> consecutive space and a non-space character.
         </p>
         
         <p>      
@@ -58,18 +61,34 @@
         </pre>
 
         <p>      
-          A broken pipe character (¦) works similarly if you want to make two kinds of lines.
+          A broken pipe character (¦) works similarly, but displays as a dim dotted line.
         </p>
         
         <p>
-          When the group has only one line, it is shown as is except when it's one of the following pragmas.
+          You can use a dollar sign ($) to add horizontal space. One $ is rendered as 1 em horizontal space. This is mostly meant to be
+          used to format chord sequencies when there are no lyrics.
+        </p>
+
+        <p>
+          At sign (@) is replaced with a non-braking space before rendering.
+        </p>
+
+        <p>
+          A line can also contain one of the following ’pragmas’.
         </p>
         
         <p>
-          <code>#song <i>Song name</i></code><br/>
-          Set the title of the song.
+          <code>#title <i>Song name</i></code><br/>
+          Set the title of the song. Displayed as a first level heading.
         </p>
-        
+
+        <p>
+          <code>#right <i>Some text</i></code><br/>
+          Text displayed to the right of the first heading. For example, song writer or artist name.
+        </p>
+
+        <p>
+          
         <p>
           <code>#section <i>Section name</i></code><br/>
           Start a new section, for example verse or chorus. Lines of a section are kept together when possible in the printout. A section ends when another begins or at the end of text.

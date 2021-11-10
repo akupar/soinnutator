@@ -66,6 +66,8 @@ textarea {
 
 #help {
     display: block;
+    background-color: white;
+    padding: 1em;
 }
 
 .line-0 {
