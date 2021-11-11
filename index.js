@@ -1,7 +1,58 @@
 (function () {
     var renderHooks = {
-        
     };
+
+
+    function getChords() {
+        const $chordElems = $('.chord');
+        const chords = [];
+
+        $chordElems.each(function () {
+            chords.push($(this).text());
+
+        });
+
+        return chords;
+    }
+    
+    function mapChords(mapping) {
+        const $chordElems = $('.chord');
+
+        $chordElems.each(function () {
+            $(this).data("orginal-chord", $(this).text());
+            $(this).text(mapping[$(this).text()]);
+
+        });
+    }
+
+
+    function doTransponation() {
+        const amount = parseInt($("#transponate-amount").val(), 10);
+        if ( Number.isNaN(amount) || amount === 0 ) {
+            return;
+        }
+        
+        const chords = getChords();
+        console.log("chords:", chords);
+        const mappings = window.getTransponateMappings(chords, amount);
+
+        let mappingNo = 0;
+        if ( mappings.length > 1 ) {
+            mappingNo = parseInt(prompt("Two possible transponations, enter 0 or 1:\n\n" + JSON.stringify(mappings, null, 2)));
+            if ( Number.isNaN(mappingNo) ) {
+                return;
+            }
+        }
+
+        $('#transponate-amount').data("transponation", { "amount": amount, "selection": mappingNo });
+        
+        mapChords(mappings[0]);
+
+        //alert(JSON.stringify(mappings, null, 2));
+
+    }
+
+
     
     function prepareParseTree(parsedDoc) {
         if ( ! parsedDoc.sections ) {
@@ -9,12 +60,10 @@
         }
 
         for ( var section of parsedDoc.sections ) {
-            console.log("N PHRASES:", section);
                 for ( var phrase of section.phrases ) {
                     var prevMeasure = phrase.measures[0];
                     
                     for ( var measure of phrase.measures.slice(1) ) {
-                        console.log("MEASURE:", measure.rows[0].bar);
                         if ( measure.rows[0].bar !== null ) {
                         prevMeasure.spaceAfter = true;
                     }
@@ -28,6 +77,7 @@
     }
     
     function render() {
+        console.log("render");
         var text = $("textarea").val();
         var $doc = $("#rendered");
         var parsedDoc = window.parser.parse(text);
@@ -46,6 +96,7 @@
         }
 
         for ( var hookKey in renderHooks ) {
+            console.log("renderhook", hookKey);
             renderHooks[hookKey]();
         }
     }
@@ -64,18 +115,14 @@
         var content = $("textarea").val();
         var filename = getCurrentFilename() || $("title").html() + ".txt";
         
-        console.log("filename:", filename);
-        
         var blob = new Blob([ content ], { type: "text/plain;charset=utf-8" });
         saveAs(blob, filename);
     }
 
     function loadSourceFile() {
-        console.log("changed");
         var reader = new FileReader();
         reader.readAsText(document.getElementById("load-button").files[0]);
         reader.onload = function (event) {
-            console.log("loaded:", event);
             $("textarea").val(event.target.result);
             render();
         };
@@ -89,8 +136,6 @@
                                     .replace("</p>", "</p>\n\n")
                                     .replace("</div>", "</div>\n\n");
         var filename = $("title").html() + ".html";
-        
-        console.log("filename:", filename);
         
         var blob = new Blob([ content ], { type: "text/html;charset=utf-8" });
         saveAs(blob, filename);
@@ -175,12 +220,13 @@
     
     function toggleFancyChords(event) {
         var $elem = $(event.target);
-        console.log("fancify event.target:", event.target);
+
         if ( $elem.prop('checked') === true ) {
             renderHooks["fancify chords"] =  fancifyChords;
         } else {
             delete renderHooks["fancify chords"]
         }
+        
         render();
     }
 
@@ -210,13 +256,19 @@
 
         $("#font-size-input").on('change', changeFontSize);
         $("#fancy-chords-checkbox").on('change', toggleFancyChords);
+        $("#transponate-amount").on('change', function() {
+            clearTimeout($(this).data('transponation-delay'));
+            $(this).data('transponation-delay', setTimeout(render, 1000));
+        });
 
         $("#test-button").on('click', testParser);
 
         if ( $('#fancy-chords-checkbox').prop('checked') === true ) {
             renderHooks["fancify chords"] =  fancifyChords;
         }
-        
+
+        renderHooks["transponate"] = doTransponation;
+
         render();
     });
 

@@ -50,8 +50,7 @@
 
         var $td = $('<td></td>').append(domTexts);
         
-        console.log("domtexts:", domTexts);
-        if ( blockData.index === 0 ) {
+        if ( blockData.index === 0 && text.match("^([A-H][♭♯#b]?)") ) {
             $td.addClass("chord");
         }
 
@@ -71,7 +70,6 @@
         }
         
         var $rows = measureBlock.rows.map(function (row) {
-            console.log("row of part:", row);
             return $('<tr></tr>')
                 .addClass("line-" + row.index)
                 .append(getTd(row));
@@ -85,8 +83,6 @@
 
 
     function $handlePhrase(phrase) {
-        console.log("handlePharse:", phrase);
-
         var $phrase = $('<p class="phrase"></p>');
 
         $phrase.append(

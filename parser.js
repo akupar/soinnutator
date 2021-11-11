@@ -173,7 +173,6 @@
     
 
     function buildMeasures(lineBlock) {
-        console.log("LINE BLOCK:", lineBlock);
         var out = [];
 	var breaks = lineBlock.breaks;
         var parts = lineBlock.lines.map((line) => split_string(line, breaks));
@@ -188,8 +187,6 @@
                     return lineForPart.replace(/@/g, "&nbsp;");
                 }
             );
-
-            console.log("LINES FOR PARTS:", linesForParts);
 
             // Ohitetaan tyhjät.
             if ( linesForParts.every(function(lineForPart) { return lineForPart.trim() === ""; }) ) {
@@ -247,10 +244,7 @@
             return line.trimEnd() !== "#0";
         });
 
-        console.log("LINES2:", regularLines);
         var lineBlock = handleLineGroup(regularLines, positiveStartIndex);
-
-        console.log("LINES3:", lineBlock);
 
         phrase.measures = buildMeasures(lineBlock);
 
