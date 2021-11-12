@@ -36,6 +36,8 @@
         var prevValue  = $("#transponate-amount").data('previous-value') || "0";
         var prevAmount = parseInt(prevValue, 10);
         var dir = amount - prevAmount;
+
+        console.log("DIR:", dir);
         
         if ( Number.isNaN(amount) || amount === 0 ) {
             return;
@@ -51,20 +53,11 @@
             } else {
                 mappingNo = 1;
             }
-            /* mappingNo = parseInt(prompt("Two possible transponations, enter 0 or 1:\n\n" + JSON.stringify(mappings, null, 2)));
-             * if ( Number.isNaN(mappingNo) ) {
-             *     return;
-             * } */
         }
 
-        $('#transponate-amount').data("transponation", { "amount": amount, "selection": mappingNo });
-        
         mapChords(mappings[mappingNo]);
 
         $("#transponate-amount").data('previous-value', amount);
-
-        //alert(JSON.stringify(mappings, null, 2));
-
     }
 
 
@@ -93,7 +86,6 @@
 
     
     function render() {
-        console.log("render");
         var text = $("textarea").val();
         var $doc = $("#rendered");
         var parsedDoc = window.parser.parse(text);
@@ -125,8 +117,6 @@
 
         var culture = getConvention();
 
-        console.log("culture:", culture);
-        
         $chords.each(function () {
             var text = $(this).data('normalized-original');
 
@@ -135,7 +125,6 @@
                 m = text.match("^([A-H][♭♯#b]?)(.*)()$")
             }
 
-            console.log('m:', m);
             if ( m && m[1].startsWith('H') && culture !== 'H' ) {
                 alert('Error: Source has chord ' + text + ' but note name convention is not set to ”German H, B”.');
             } else if ( m && m[3].startsWith('H') && culture !== 'H' ) {
@@ -290,7 +279,6 @@
         $('.chord').each(function () {
             var normalizedName = $(this).attr('data-normalized-original');
 
-            console.log("normalaized:", normalizedName);
             $(this).text(
                 normalizedName.replace(/([A-H][♯♭]?)([^♯♭ ])/, '$1 $2') // insert hair space U+200A after root name 
                               .replace(/(sus|add|aug|dim|non|no)(.)/, '$1 $2')
