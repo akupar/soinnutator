@@ -30,11 +30,13 @@
     <div id="render-toolbar" class="no-print">
       <button id="print-button" onclick="print();">Print</button>
       <button id="export-html-button">Export HTML</button>
+      <span class="separator"></span>      
       <label for="style-sheet-selector">Style Sheet:</label> <select id="style-sheet-selector"></select>
+      <span class="separator"></span>
       <label>Font scaling: <input type="number" min="0" max="1000" value="100" step="1" id="font-size-input" /> %</label>
-      <label for="fancy-chords-checkbox"><input type="checkbox" id="fancy-chords-checkbox"/> Fancy chords</label>
+      <span class="separator"></span>      
       <label for="transponate-amount">Transponate: 
-        <input type="number" id="transponate-amount" value="0"/>
+        <input type="number" id="transponate-amount" value="0" min="-11" max="11"/>
       </label>
             
     </div>
@@ -117,6 +119,15 @@
       <button id="render-button">Render</button>
       <button id="test-button">Test parser</button>
       <button id="toggle-help-button">Hide Help</button>
+      
+      <span class="separator"></span>
+      
+      <label for="convention-selector">Convention:</label>
+      <select id="convention-selector" title="Select convention used for B/H note.">
+        <option value="H">German (H, B)</option>
+        <option value="B">English (B, B♭)</option>        
+      </select>
+            
       <p style="float: right;">
                 Copy-paste here: |¦♯♭♫♪𝄉𝄊𝄋𝄌𝄎
       </p>
