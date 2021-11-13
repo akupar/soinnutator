@@ -1,80 +1,5 @@
 (function () {
     
-    const majors = [
-        {"name":"C major (B)", "culture":"B", "I":"C", "II":"Dm", "III":"Em", "IV":"F", "V":"G", "VI":"Am", "VII":"B°", "num":"0"},
-        {"name":"C♯ major (B)", "culture":"B", "I":"C♯", "II":"D♯m", "III":"E♯m", "IV":"F♯", "V":"G♯", "VI":"A♯m", "VII":"B♯°", "num":"1"},
-        {"name":"D♭ major (B)", "culture":"B", "I":"D♭", "II":"E♭m", "III":"Fm", "IV":"G♭", "V":"A♭", "VI":"B♭m", "VII":"C°", "num":"1"},
-        {"name":"D major (B)", "culture":"B", "I":"D", "II":"Em", "III":"F♯m", "IV":"G", "V":"A", "VI":"Bm", "VII":"C♯°", "num":"2"},
-        {"name":"D♯ major (B)", "culture":"B", "I":"D♯", "II":"E♯m", "III":"F𝄪m", "IV":"G♯", "V":"A♯", "VI":"B♯m", "VII":"C𝄪°", "num":"3"},
-        {"name":"E♭ major (B)", "culture":"B", "I":"E♭", "II":"Fm", "III":"Gm", "IV":"A♭", "V":"B♭", "VI":"Cm", "VII":"D°", "num":"3"},
-        {"name":"E major (B)", "culture":"B", "I":"E", "II":"F♯m", "III":"G♯m", "IV":"A", "V":"B", "VI":"C♯m", "VII":"D♯°", "num":"4"},
-        {"name":"F♭ major (B)", "culture":"B", "I":"F♭", "II":"G♭m", "III":"A♭m", "IV":"B𝄫", "V":"C♭", "VI":"D♭m", "VII":"E♭°", "num":"4"},
-        {"name":"F major (B)", "culture":"B", "I":"F", "II":"Gm", "III":"Am", "IV":"B♭", "V":"C", "VI":"Dm", "VII":"E°", "num":"5"},
-        {"name":"F♯ major (B)", "culture":"B", "I":"F♯", "II":"G♯m", "III":"A♯m", "IV":"B", "V":"C♯", "VI":"D♯m", "VII":"E♯°", "num":"6"},
-        {"name":"G♭ major (B)", "culture":"B", "I":"G♭", "II":"A♭m", "III":"B♭m", "IV":"C♭", "V":"D♭", "VI":"E♭m", "VII":"F°", "num":"6"},
-        {"name":"G major (B)", "culture":"B", "I":"G", "II":"Am", "III":"Bm", "IV":"C", "V":"D", "VI":"Em", "VII":"F♯°", "num":"7"},
-        {"name":"G♯ major (B)", "culture":"B", "I":"G♯", "II":"A♯m", "III":"B♯m", "IV":"C♯", "V":"D♯", "VI":"E♯m", "VII":"F𝄪°", "num":"8"},
-        {"name":"A♭ major (B)", "culture":"B", "I":"A♭", "II":"B♭m", "III":"Cm", "IV":"D♭", "V":"E♭", "VI":"Fm", "VII":"G°", "num":"8"},
-        {"name":"A major (B)", "culture":"B", "I":"A", "II":"Bm", "III":"C♯m", "IV":"D", "V":"E", "VI":"F♯m", "VII":"G♯°", "num":"9"},
-        {"name":"B♭ major (B)", "culture":"B", "I":"B♭", "II":"Cm", "III":"Dm", "IV":"E♭", "V":"F", "VI":"Gm", "VII":"A°", "num":"10"},
-        {"name":"B major (B)", "culture":"B", "I":"B", "II":"C♯m", "III":"D♯m", "IV":"E", "V":"F♯", "VI":"G♯m", "VII":"A♯°", "num":"11"},
-        {"name":"C♭ major (B)", "culture":"B", "I":"C♭", "II":"D♭m", "III":"E♭m", "IV":"F♭", "V":"G♭", "VI":"A♭m", "VII":"B♭°", "num":"11"},
-        {"name":"C major (H)", "culture":"H", "I":"C", "II":"Dm", "III":"Em", "IV":"F", "V":"G", "VI":"Am", "VII":"H°", "num":"0"},
-        {"name":"C♯ major (H)", "culture":"H", "I":"C♯", "II":"D♯m", "III":"E♯m", "IV":"F♯", "V":"G♯", "VI":"A♯m", "VII":"H♯°", "num":"1"},
-        {"name":"D♭ major (H)", "culture":"H", "I":"D♭", "II":"E♭m", "III":"Fm", "IV":"G♭", "V":"A♭", "VI":"Bm", "VII":"C°", "num":"1"},
-        {"name":"D major (H)", "culture":"H", "I":"D", "II":"Em", "III":"F♯m", "IV":"G", "V":"A", "VI":"Hm", "VII":"C♯°", "num":"2"},
-        {"name":"D♯ major (H)", "culture":"H", "I":"D♯", "II":"E♯m", "III":"F𝄪m", "IV":"G♯", "V":"A♯", "VI":"H♯m", "VII":"C𝄪°", "num":"3"},
-        {"name":"E♭ major (H)", "culture":"H", "I":"E♭", "II":"Fm", "III":"Gm", "IV":"A♭", "V":"B", "VI":"Cm", "VII":"D°", "num":"3"},
-        {"name":"E major (H)", "culture":"H", "I":"E", "II":"F♯m", "III":"G♯m", "IV":"A", "V":"H", "VI":"C♯m", "VII":"D♯°", "num":"4"},
-        {"name":"F♭ major (H)", "culture":"H", "I":"F♭", "II":"G♭m", "III":"A♭m", "IV":"B♭", "V":"C♭", "VI":"D♭m", "VII":"E♭°", "num":"4"},
-        {"name":"F major (H)", "culture":"H", "I":"F", "II":"Gm", "III":"Am", "IV":"B", "V":"C", "VI":"Dm", "VII":"E°", "num":"5"},
-        {"name":"F♯ major (H)", "culture":"H", "I":"F♯", "II":"G♯m", "III":"A♯m", "IV":"H", "V":"C♯", "VI":"D♯m", "VII":"E♯°", "num":"6"},
-        {"name":"G♭ major (H)", "culture":"H", "I":"G♭", "II":"A♭m", "III":"Bm", "IV":"C♭", "V":"D♭", "VI":"E♭m", "VII":"F°", "num":"6"},
-        {"name":"G major (H)", "culture":"H", "I":"G", "II":"Am", "III":"Hm", "IV":"C", "V":"D", "VI":"Em", "VII":"F♯°", "num":"7"},
-        {"name":"G♯ major (H)", "culture":"H", "I":"G♯", "II":"A♯m", "III":"H♯m", "IV":"C♯", "V":"D♯", "VI":"E♯m", "VII":"F𝄪°", "num":"8"},
-        {"name":"A♭ major (H)", "culture":"H", "I":"A♭", "II":"Bm", "III":"Cm", "IV":"D♭", "V":"E♭", "VI":"Fm", "VII":"G°", "num":"8"},
-        {"name":"A major (H)", "culture":"H", "I":"A", "II":"Hm", "III":"C♯m", "IV":"D", "V":"E", "VI":"F♯m", "VII":"G♯°", "num":"9"},
-        {"name":"B major (H)", "culture":"H", "I":"B", "II":"Cm", "III":"Dm", "IV":"E♭", "V":"F", "VI":"Gm", "VII":"A°", "num":"10"},
-        {"name":"H major (H)", "culture":"H", "I":"H", "II":"C♯m", "III":"D♯m", "IV":"E", "V":"F♯", "VI":"G♯m", "VII":"A♯°", "num":"11"},
-        {"name":"C♭ major (H)", "culture":"H", "I":"C♭", "II":"D♭m", "III":"E♭m", "IV":"F♭", "V":"G♭", "VI":"A♭m", "VII":"B", "num":"11"},
-
-    ];
-
-
-    const calculateMatchPoints = (set, chords) => {
-        let points = 0;
-        
-        for ( let chord of chords ) {
-            for ( let degree in set ) {
-                if ( set[degree] === chord ) {
-                    points = points + 1;
-                }
-            }
-        }
-
-        return points;
-    };
-
-
-    const rateChords = (chords) => {
-
-        const points = [];
-        
-        for ( let set of majors ) {
-            points.push({ "name": set.name, "points": calculateMatchPoints(set, chords) });
-        }
-
-        points.sort((a, b) => a.points - b.points);
-
-        return points;
-    };
-
-    const chords = ["A", "D", "F♯m", "E", "C♯m", "B♭°"];
-    const chords2 = ["A", "D", "F♯", "E", "C♯"];
-
-    //console.log(rateChords(chords));
-
-
     const values = {
         "C": { index: 0, pos: 0 },
         "C♯": { index: 1, pos: 0 },
@@ -175,16 +100,13 @@
     }
 
 
-    const transponate = (notes, amount) => {
+    const getNoteMappings = (notes, amount) => {
         const possibleIntervals = Object.keys(intervals)
                                         .map(key => intervals[key])
                                         .filter((interval) => interval.index === amount);
 
-        console.log("possible:", possibleIntervals);
-
         const possibleResult = [];
 
-        console.log("notes:", notes);
         for ( let possibleInterval of possibleIntervals ) {
             const transponatedNotes = notes.map(
                 (note) => {
@@ -196,12 +118,8 @@
                         (key) => values[key].index === newIndex && values[key].pos === newPos
                     );
 
-                    console.assert(possibleNotes.length <= 1);
-
                     return possibleNotes[0];
                 });
-
-            console.log(notes, "->", transponatedNotes);
 
             // If all notes could be transponated.
             if ( transponatedNotes.filter(transponatedNote => !transponatedNote).length === 0 ) {
@@ -210,16 +128,13 @@
                         zip(notes, transponatedNotes)
                     )
                 );
-
-                console.log("GOT NOTE MAPPING:", Object.fromEntries(
-                    zip(notes, transponatedNotes)
-                ));
             }
         }
 
         return possibleResult;
     };
 
+    
     function unique(list) {
         var seen = {};
 
@@ -232,13 +147,51 @@
         return Object.keys(seen);
     }
 
-    const getMappings = (chords, amount) => {
+    function rateNotes(notes, dir) {
+        var rate = 0;
+        
+        for ( var note of notes ) {
+            if ( note.indexOf("𝄪") > -1 || note.indexOf("𝄫") > -1 ) {
+                rate--;
+            }
+            if ( dir > 0 && note.indexOf("♭") > -1 ) {
+                rate--;
+            } else if ( dir > 0 && note.indexOf("♯") > -1 ) {
+                rate++;
+            } else if ( dir < 0 && note.indexOf("♯") > -1 ) {
+                rate--;
+            } else if ( dir > 0 && note.indexOf("♭") > -1 ) {
+                rate++;
+            }
+        }
+        
+        return rate;
+    }
+
+    
+    function selectNoteMap(noteMaps, preferDir) {
+        var rated = [];
+        
+        for ( var setIndex in noteMaps  ) {
+            var noteMap = noteMaps[setIndex];
+            var rate = rateNotes(Object.values(noteMap), preferDir);
+
+            rated.push({ noteMap: noteMap, rate: rate });
+        }
+
+        rated.sort(function (a, b) { return b.rate - a.rate; });
+
+        return rated[0].noteMap;
+    }
+    
+    
+    const getChordMapping = (chords, amount, preferDir) => {
         while ( amount < 0 ) {
             amount = amount + 12;
         }
         const nameQualityPairs = chords.map(
             chord => {
-                const m = chord.match("^([A-H][♭♯#b]?)(.*?)(/([A-H][♭♯#b]?))?$");
+                const m = chord.match("^([A-H][♭♯𝄫𝄪]?)(.*?)(/([A-H][♭♯𝄫𝄪]?))?$");
                 if ( !m ) {
                     throw new Error("Not a chord: " + chord);
                 }
@@ -246,7 +199,7 @@
                 return {
                     fullName: chord,
                     baseNote: m[1],
-                    quality: m[2],
+                    quality:  m[2],
                     bassNote: m[4]
                 };
             });
@@ -254,43 +207,32 @@
         const baseNotes = unique(nameQualityPairs.map(nameQualityPair => nameQualityPair.baseNote));
         var bassNotes = unique(nameQualityPairs.map(nameQualityPair => nameQualityPair.bassNote));
 
-        console.log("baseNotes:", baseNotes);
-        console.log("bassNotes:", bassNotes);
-        
-        const transponatedBaseNoteMaps = transponate(baseNotes, amount);
-        const transponatedBassNoteMaps = transponate(bassNotes, amount);
+        var noteNames = unique([].concat(baseNotes, bassNotes));
 
-        const chordMappingSets = [];
+        const transponatedNoteMaps = getNoteMappings(noteNames, amount);
+
+        var noteMap = selectNoteMap(transponatedNoteMaps, preferDir);
         
-        for ( var setIndex in transponatedBaseNoteMaps  ) {
-            
-            let baseNoteMap = transponatedBaseNoteMaps[setIndex];
-            let bassNoteMap = transponatedBassNoteMaps[setIndex];        
-            let chordMapping = {};
-            
-            for ( let chordInfo of nameQualityPairs  ) {
-                if ( chordInfo.bassNote ) {
-                    chordMapping[chordInfo.fullName] = baseNoteMap[chordInfo.baseNote]
-                                                     + chordInfo.quality
-                                                     + "/" + bassNoteMap[chordInfo.bassNote];
-                } else {
-                    chordMapping[chordInfo.fullName] = baseNoteMap[chordInfo.baseNote]
-                                                     + chordInfo.quality
-                }
+        let chordMapping = {};
+        
+        for ( let chordInfo of nameQualityPairs  ) {
+            if ( chordInfo.bassNote ) {
+                chordMapping[chordInfo.fullName] = noteMap[chordInfo.baseNote]
+                                                 + chordInfo.quality
+                                                 + "/" + noteMap[chordInfo.bassNote];
+            } else {
+                chordMapping[chordInfo.fullName] = noteMap[chordInfo.baseNote]
+                                                 + chordInfo.quality
             }
-
-            chordMappingSets.push(chordMapping);
-
-            console.log("GOT CHORD MAPPING:", chordMapping);
         }
 
-        return chordMappingSets;
+        return chordMapping;
     };
 
 
 
     window.transponation = {
-        getMappings: getMappings
+        getChordMapping: getChordMapping
     };
 
 }());

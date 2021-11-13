@@ -36,26 +36,15 @@
         var prevValue  = $("#transponate-amount").data('previous-value') || "0";
         var prevAmount = parseInt(prevValue, 10);
         var dir = amount - prevAmount;
-
-        console.log("DIR:", dir);
         
         if ( Number.isNaN(amount) || amount === 0 ) {
             return;
         }
         
         var chords = getChords();
-        var mappings = window.transponation.getMappings(chords, amount);
+        var chordMapping = window.transponation.getChordMapping(chords, amount, dir);
 
-        var mappingNo = 0;
-        if ( mappings.length > 1 ) {
-            if ( dir >= 0 ) {
-                mappingNo = 0;
-            } else {
-                mappingNo = 1;
-            }
-        }
-
-        mapChords(mappings[mappingNo]);
+        mapChords(chordMapping);
 
         $("#transponate-amount").data('previous-value', amount);
     }
@@ -322,7 +311,7 @@
             var oldTimeoutHandle = $(this).data('transponation-delay');
             clearTimeout(oldTimeoutHandle);
             
-            var newTimeoutHandle = setTimeout(render, 1000);
+            var newTimeoutHandle = setTimeout(render, 500);
             $(this).data('transponation-delay', newTimeoutHandle);
         });
 
