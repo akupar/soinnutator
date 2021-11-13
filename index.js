@@ -315,9 +315,14 @@
             $(this).data('transponation-delay', newTimeoutHandle);
         });
 
-        $("#test-button").on('click', testParser);
+        if ( window.location.search.indexOf("debug=1") > -1 ) {
+            $("#test-button").on('click', testParser);
+        } else {
+            $("#test-button").remove();
+        }
         //$("#test-button").on('click', getConvention);        
 
+        // Functions to run after rendering.
         renderHooks.push(saveNormalizedFormOfChords);
         renderHooks.push(fancifyChords);        
         renderHooks.push(doTransponation);
