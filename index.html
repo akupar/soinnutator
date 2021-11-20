@@ -69,16 +69,20 @@
         </pre>
 
         <p>      
-          A broken pipe character (¦) works similarly, but displays as a dim dotted line.
+          A broken pipe character (¦) works similarly, but displays as a dim dotted line. This is meant to be used for subdivision of the bar when necessary.
         </p>
         
         <p>
-          You can use a dollar sign ($) to add horizontal space. One $ is rendered as 1 em horizontal space. This is mostly meant to be
+          You can use a dollar sign ($) to add horizontal space. One $ is rendered as the width of a 0 (zero) character. This is mostly meant to be
           used to format chord sequencies when there are no lyrics.
         </p>
 
         <p>
-          At sign (@) is replaced with a non-braking space before rendering.
+          At sign (@) is replaced with a non-braking space before rendering. (This might not be needed any more. You might want to use $ instead.)
+        </p>
+
+        <p>
+          # and b in chord names are automatically replaced with ♯ and ♭, respectively, on rendering.
         </p>
 
         <p>
@@ -111,6 +115,7 @@
           See <a href="examples.html">examples</a> (no examples yet).
         </p>
 
+        Note transponation works so that sharp keys are rotated going forward and flat keys going backwards. So if you want to go to D♭ from C, you need to go up two units (from C to C♯ to D) and then back one (from D to D♭).
         <p>
         </p>
       </div>
