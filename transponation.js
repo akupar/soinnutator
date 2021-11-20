@@ -191,7 +191,7 @@
         }
         const nameQualityPairs = chords.map(
             chord => {
-                const m = chord.match("^([A-H][♭♯𝄫𝄪]?)(.*?)(/([A-H][♭♯𝄫𝄪]?))?$");
+                const m = chord.trim().match("^([A-H][♭♯𝄫𝄪]?)(.*?)(/([A-H][♭♯𝄫𝄪]?))?$");
                 if ( !m ) {
                     throw new Error("Not a chord: " + chord);
                 }

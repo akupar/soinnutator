@@ -170,6 +170,22 @@
         return block;
     }
 
+
+    function hasBar(barType, linesForParts) {
+        var hasBar = false;
+
+        // Check that at least one line has the bar character (|, ¦) and the rest are empty ("" or " "). IF
+        // one line ends before other, it has "".
+        for ( lineForPart of linesForParts ) {
+            if ( lineForPart === barType ) {
+                hasBar = true;
+            } else if ( lineForPart !== "" && lineForPart !== " " ) {
+                return false;
+            }
+        }
+        
+        return hasBar;
+    }
     
 
     function buildMeasures(lineBlock) {
@@ -180,25 +196,45 @@
         var bar = null;
         var partGroups = transpose(parts);
 
+        console.log("parts:", parts);
+        console.log("partGroups:", partGroups);
+        
 	partGroups.forEach(function (linesForParts, index) {
+
+            var starts = linesForParts.map(function (part) { return part.match(/^  +/); });
+            var ends   = linesForParts.map(function (part) { return part.match(/  +$/); });
+            
+            var lenStarts = starts.reduce(function (acc, val) { return Math.min(acc, val); });
+            var lenEnds   = ends.reduce(function (acc, val) { return Math.min(acc, val); });
+
+            console.log("LEN S:", lenStarts, "E:", lenEnds);
 	    linesForParts = linesForParts.map(
                 function (lineForPart) {
                     // Merkki @ toimii näkymättömänä ankkurina.
+                    lineForPart = lineForPart.replace(/^  +/, '@'.repeat(lenStarts));
+                    lineForPart = lineForPart.replace(/  +$/, '@'.repeat(lenEnds));
                     return lineForPart.replace(/@/g, "&nbsp;");
                 }
             );
 
+            console.log("linesForParts:", linesForParts);
             // Ohitetaan tyhjät.
-            if ( linesForParts.every(function(lineForPart) { return lineForPart.trim() === ""; }) ) {
+            if ( linesForParts.every(function(lineForPart) { return lineForPart === " "; }) ) {
+                console.log("skip");
                 return out;
-            } else if ( linesForParts.every(function(lineForPart) { return lineForPart === "|"; }) ) {
+            } else if ( hasBar("|", linesForParts) ) {
                 bar = "|";
-            } else if ( linesForParts.every(function(lineForPart) { return lineForPart === "¦"; }) ) {
+            } else if ( hasBar("¦", linesForParts) ) {
                 bar = "¦";
             } else {
+                if ( linesForParts.every(function(lineForPart) { return lineForPart.match(/^  +$/); }) ) {
+                    linesForParts = linesForParts.map(function (lineForPart) { return lineForPart.replaceAll(" ", "$"); });
+                }
+                
                 var measureBlock = getBlock(linesForParts, bar, lineBlock.firstIndex);
 	        out.push(measureBlock);
 
+                
                 // If all lines end in space, mark as bar so we can get a space after the measure.
                 if ( linesForParts.every(function(lineForPart) { return lineForPart.endsWith(" "); }) ) {
                     bar = " ";

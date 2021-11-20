@@ -317,10 +317,10 @@
 
         if ( window.location.search.indexOf("debug=1") > -1 ) {
             $("#test-button").on('click', testParser);
+            //$("#test-button").on('click', getConvention);        
         } else {
             $("#test-button").remove();
         }
-        //$("#test-button").on('click', getConvention);        
 
         // Functions to run after rendering.
         renderHooks.push(saveNormalizedFormOfChords);
