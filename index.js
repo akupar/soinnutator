@@ -40,13 +40,11 @@
 
             chords.push(chordName);
         });
-        console.log("CHRDS:", chords);
         return chords;
     }
 
     function conventionalizeOutput() {
         var convention = getOutputConvention();
-        console.log("OUTPUT CONVENTION:", convention);
         if ( convention === "B" ) {
             return;
         }
@@ -57,7 +55,6 @@
             var normalizedName = $(this).text().replace(" ", "");
             
             var conventionalizedChord = window.chordConvention.getChordNameInConvention(normalizedName, convention);
-            console.log("normalizedName:", normalizedName, "->", conventionalizedChord);
 
             $(this).text(conventionalizedChord);
         });
@@ -361,7 +358,12 @@
 
 
     function changeOutputConvention() {
+        localStorage.setItem("output-convention", getOutputConvention());
         render();
+    }
+
+    function changeInputConvention() {
+        localStorage.setItem("input-convention", getInputConvention());
     }
     
 
@@ -377,6 +379,7 @@
         //disableExtraStyleSheets();
         populateStyleSheetSelector();
         changeStyleSheet();
+        
         
         $("#save-button").on('click', saveSourceFile);
         $("#load-button").on('change', loadSourceFile);
@@ -398,11 +401,18 @@
             $(this).data('transponation-delay', newTimeoutHandle);
         });
 
+        $("#input-convention-selector").on('change', changeInputConvention);
+        if ( localStorage.getItem("input-convention") === "H" ) {
+            $("#input-convention-selector").val("H");
+        }
+
         $("#output-convention-selector").on('change', changeOutputConvention);
+        if ( localStorage.getItem("output-convention") === "H" ) {
+            $("#output-convention-selector").val("H");
+        }
 
         if ( window.location.search.indexOf("debug=1") > -1 ) {
             $("#test-button").on('click', testParser);
-            //$("#test-button").on('click', getConvention);        
         } else {
             $("#test-button").remove();
         }

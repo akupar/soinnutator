@@ -75,8 +75,6 @@
         baseNote = englishToGerman(baseNote);
         bassNote = englishToGerman(bassNote);
 
-        console.log("baseNote:", baseNote);
-        
         if ( bassNote ) {
             return baseNote + quality + "/" + bassNote;
         } else {

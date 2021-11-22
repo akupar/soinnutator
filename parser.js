@@ -196,9 +196,6 @@
         var bar = null;
         var partGroups = transpose(parts);
 
-        console.log("parts:", parts);
-        console.log("partGroups:", partGroups);
-        
 	partGroups.forEach(function (linesForParts, index) {
 
             var starts = linesForParts.map(function (part) { return part.match(/^  +/); });
@@ -207,7 +204,6 @@
             var lenStarts = starts.reduce(function (acc, val) { return Math.min(acc, val); });
             var lenEnds   = ends.reduce(function (acc, val) { return Math.min(acc, val); });
 
-            console.log("LEN S:", lenStarts, "E:", lenEnds);
 	    linesForParts = linesForParts.map(
                 function (lineForPart) {
                     // Merkki @ toimii näkymättömänä ankkurina.
@@ -217,10 +213,8 @@
                 }
             );
 
-            console.log("linesForParts:", linesForParts);
             // Ohitetaan tyhjät.
             if ( linesForParts.every(function(lineForPart) { return lineForPart === " "; }) ) {
-                console.log("skip");
                 return out;
             } else if ( hasBar("|", linesForParts) ) {
                 bar = "|";
