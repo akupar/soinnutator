@@ -101,6 +101,20 @@
 
         mapChords(chordMapping);
 
+        var doubleSharp = Object.values(chordMapping).filter(function (chordName) { return chordName.indexOf("𝄪") > -1; });
+        var doubleFlat = Object.values(chordMapping).filter(function (chordName) { return chordName.indexOf("𝄫") > -1; });
+
+        if ( doubleSharp.length > 0 ) {
+            $("#double-sharp-indicator").show();
+        } else {
+            $("#double-sharp-indicator").hide();
+        }
+        if ( doubleFlat.length > 0 ) {
+            $("#double-flat-indicator").show();
+        } else {
+            $("#double-flat-indicator").hide();
+        }
+
         $("#transponate-amount").data('previous-value', amount);
     }
 
