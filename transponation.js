@@ -182,6 +182,10 @@
             rated.push({ noteMap: noteMap, rate: rate });
         }
 
+        if ( rated.length === 0 ) {
+            throw new Error("Could not find transponation");
+        }
+
         rated.sort(function (a, b) { return b.rate - a.rate; });
 
         return rated[0].noteMap;
