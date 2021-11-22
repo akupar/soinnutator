@@ -111,6 +111,9 @@
             const transponatedNotes = notes.map(
                 (note) => {
                     const value = values[note];
+                    if ( !value ) {
+                        throw new Error("Unknown note: " + note);
+                    }
                     const newIndex = (value.index + possibleInterval.index) % 12;
                     const newPos = (value.pos + possibleInterval.pos) % 7;
 

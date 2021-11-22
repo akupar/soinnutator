@@ -2,13 +2,39 @@
     // Hooks run after render.
     var renderHooks = [];
 
+    function clearRenderError() {
+        if ( $("#message-bar-render").data('timer') ) {
+            clearTimeout($("#message-bar-render").data('timer'));
+        }
+        $("#message-bar-render").fadeOut();
+    }
+    function setRenderError(errorMessage) {
+        clearRenderError();
+        $("#message-bar-render").html(errorMessage);
+        $("#message-bar-render").data('timer', setTimeout(clearRenderError, 5000));
+        $("#message-bar-render").show();
+    }
+
+
+    function clearEditError() {
+        if ( $("#message-bar-edit").data('timer') ) {
+            clearTimeout($("#message-bar-edit").data('timer'));
+        }
+        $("#message-bar-edit").fadeOut();
+    }
+    function setEditError(errorMessage) {
+        clearEditError();
+        $("#message-bar-edit").html(errorMessage);
+        $("#message-bar-edit").data('timer', setTimeout(clearEditError, 5000));
+        $("#message-bar-edit").show();
+    }    
 
     function getChords() {
         const $chordElems = $('.chord');
         const chords = [];
 
         $chordElems.each(function () {
-            var chordName = $(this).attr('data-normalized-original');
+            var chordName = $(this).attr('data-normalized');
 
             chords.push(chordName);
         });
@@ -20,11 +46,14 @@
         const $chordElems = $('.chord');
 
         $chordElems.each(function () {
-            var normalizedName = $(this).data("normalized-original");
+            var normalizedName = $(this).data("normalized");
             var transponatedChord = mapping[normalizedName];
             if ( !transponatedChord ) {
                 throw new Error("No mapping for chord " + normalizedName);
             }
+            
+            transponatedChord = getChordNameInConvention(transponatedChord);
+
             $(this).text(transponatedChord);
 
         });
@@ -42,7 +71,13 @@
         }
         
         var chords = getChords();
-        var chordMapping = window.transponation.getChordMapping(chords, amount, dir);
+        var chordMapping;
+        try {
+            chordMapping = window.transponation.getChordMapping(chords, amount, dir);
+        } catch ( error ) {
+            setRenderError(error);
+            return;
+        }
 
         mapChords(chordMapping);
 
@@ -104,24 +139,24 @@
     function checkConvention() {
         var $chords = $('.chord');
 
-        var culture = getConvention();
+        var culture = getInputConvention();
 
         $chords.each(function () {
             var text = $(this).data('normalized-original');
 
-            var m = text.match("^([A-H][♭♯#b]?)(.*?)/([A-H][♭♯#b]?)$")
+            var m = text.match("^([A-H][♭♯𝄫𝄪]?)(.*?)/([A-H][♭♯𝄫𝄪]?)$")
             if ( !m ) {
-                m = text.match("^([A-H][♭♯#b]?)(.*)()$")
+                m = text.match("^([A-H][♭♯𝄫𝄪]?)(.*)()$")
             }
 
             if ( m && m[1].startsWith('H') && culture !== 'H' ) {
-                alert('Error: Source has chord ' + text + ' but note name convention is not set to ”German H, B”.');
+                setEditError('Error: Source has chord ' + text + ' but note name convention is not set to ”German H, B”.');
             } else if ( m && m[3].startsWith('H') && culture !== 'H' ) {
-                alert('Error: Source has chord ' + text + ' but note name convention is not set to ”German H, B”.');
-            } else if ( m && m[1].startsWith('B♭') && culture !== 'B' ) {
-                alert('Error: Source has chord ' + text + ' but note name convention is not set to ”English B, B♭”.');
-            } else if ( m && m[3] === ('B♭') && culture !== 'B' ) {
-                alert('Error: Source has chord ' + text + ' but note name convention is not set to ”English B, B♭”.');
+                setEditError('Error: Source has note ' + text + ' but note name convention is not set to ”German H, B”.');
+            } else if ( m && m[1].startsWith('B𝄫') && culture !== 'B' ) {
+                setEditError('Error: Source has chord ' + text + ' but note name convention is not set to ”English B, B♭”.');
+            } else if ( m && m[3] === ('B𝄫') && culture !== 'B' ) {
+                setEditError('Error: Source has note ' + text + ' but note name convention is not set to ”English B, B♭”.');
             }
 
         });
@@ -133,8 +168,8 @@
         checkConvention();
     }        
 
-        
-        function getCurrentFilename() {
+    
+    function getCurrentFilename() {
         var loadBtn = document.getElementById("load-button");
 
         if ( loadBtn.files.length > 0 ) {
@@ -247,26 +282,117 @@
     }
 
 
+    function germanToEnglish(notename) {
+        switch ( notename ) {
+            case 'H𝄪':
+                return 'B𝄪';
+            case 'H♯':
+                return 'B♯';
+            case 'H':
+                return 'B';
+            case 'B':
+                return 'B♭';
+            case 'B♭':
+                return 'B𝄫';
+            case 'B𝄫':
+                throw new Error("No such note: B𝄫 (convention: German)");
+        }
+        return notename;
+    }
+
+    function englishToGerman(notename) {
+        switch ( notename ) {
+            case 'B𝄪':
+                return 'H𝄪';
+            case 'B♯':
+                return 'H♯';
+            case 'B':
+                return 'H';
+            case 'B♭':
+                return 'B';
+            case 'B𝄫':
+                return 'B♭';
+        }
+        return notename;
+    }
+
+    
+    function normalizeNoteNames(originalChord) {
+        console.log("CONV:", getInputConvention());
+        if ( getInputConvention() === "B" ) {
+            return originalChord;
+        }
+        
+        var m = originalChord.trim().match("^([A-H][♭♯𝄫𝄪]?)(.*?)(/([A-H][♭♯𝄫𝄪]?))?$");
+        if ( !m ) {
+            throw new Error("Not a chord: " + originalChord);
+        }
+        
+        var baseNote = germanToEnglish(m[1]);
+        var quality  = m[2];
+        var bassNote = germanToEnglish(m[4]);
+
+
+        if ( bassNote ) {
+            return baseNote + quality + "/" + bassNote;
+        } else {
+            return baseNote + quality;
+        }
+        
+    }
+
+    function getChordNameInConvention(normalizedChord) {
+        if ( getOutputConvention() === "B" ) {
+            return normalizedChord;
+        }
+        
+        var m = normalizedChord.trim().match("^([A-H][♭♯𝄫𝄪]?)(.*?)(/([A-H][♭♯𝄫𝄪]?))?$");
+        if ( !m ) {
+            throw new Error("Not a chord: " + normalizedChord);
+        }
+
+        var baseNote = m[1];
+        var quality  = m[2];
+        var bassNote = m[4];
+
+        if ( baseNote.startsWith("H") || (bassNote && bassNote.startsWith("H")) ) {
+            throw new Error("H note where it shouldn't be");
+        }            
+
+        var baseNote = englishToGerman(baseNote);
+        var bassNote = englishToGerman(bassNote);
+        
+        if ( bassNote ) {
+            return baseNote + quality + "/" + bassNote;
+        } else {
+            return baseNote + quality;
+        }
+        
+    }
+    
+
     /**
      * Saves the original (before transponation) chord name in a normalized
      * format to the element.
      **/
     function saveNormalizedFormOfChords() {
         $('.chord').each(function () {
-            var normalizedName = $(this).text()
-                              .replaceAll("##", "𝄪")
-                              .replaceAll("bb", "𝄫")
-                              .replaceAll("#", "♯")
-                              .replaceAll("b", "♭");
-            
+            var normalizedOriginalName = $(this).text()
+                                                .replaceAll("##", "𝄪")
+                                                .replaceAll("bb", "𝄫")
+                                                .replaceAll("#", "♯")
+                                                .replaceAll("b", "♭");
 
-            $(this).attr('data-normalized-original', normalizedName);
+            var normalizedName = normalizeNoteNames(normalizedOriginalName);
+
+            $(this).attr('data-normalized-original', normalizedOriginalName);
+            $(this).attr('data-normalized', normalizedName);
         });
     }
 
     function fancifyChords() {
         $('.chord').each(function () {
-            var normalizedName = $(this).attr('data-normalized-original');
+            var normalizedName = $(this).attr('data-normalized');
 
             $(this).text(
                 normalizedName.replace(/([A-H][♯♭]?)([^♯♭ ])/, '$1 $2') // insert hair space U+200A after root name 
@@ -277,8 +403,17 @@
 
     
 
-    function getConvention() {
-        return $('#convention-selector').val();
+    function getInputConvention() {
+        return $('#input-convention-selector').val();
+    }
+    
+    function getOutputConvention() {
+        return $('#output-convention-selector').val();
+    }
+
+
+    function changeOutputConvention() {
+        render();
     }
     
 
@@ -314,6 +449,8 @@
             var newTimeoutHandle = setTimeout(render, 500);
             $(this).data('transponation-delay', newTimeoutHandle);
         });
+
+        $("#output-convention-selector").on('change', changeOutputConvention);
 
         if ( window.location.search.indexOf("debug=1") > -1 ) {
             $("#test-button").on('click', testParser);

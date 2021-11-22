@@ -353,10 +353,4 @@
         parse: parse,
     };
 
-
-    var test = parse("| G            Em7   | C              D\n\
-| @ Close your eyes, | give me your hand, darling \n\
-");
-
-    console.log(JSON.stringify(test, null, 2));
 }());
