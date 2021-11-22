@@ -194,15 +194,19 @@
         }
         const nameQualityPairs = chords.map(
             chord => {
-                const m = chord.trim().match("^([A-H][♭♯𝄫𝄪]?)(.*?)(/([A-H][♭♯𝄫𝄪]?))?$");
+                var m = chord.trim().match("^([A-H](𝄫|𝄪|♭|♯)?)(.*?)/([A-H](𝄫|𝄪|♭|♯)?)$");
+                
                 if ( !m ) {
+                    m = chord.trim().match("^([A-H](𝄫|𝄪|♭|♯)?)(.*?)$");
+                }
+                 if ( !m ) {
                     throw new Error("Not a chord: " + chord);
                 }
                 
                 return {
                     fullName: chord,
                     baseNote: m[1],
-                    quality:  m[2],
+                    quality:  m[3],
                     bassNote: m[4]
                 };
             });

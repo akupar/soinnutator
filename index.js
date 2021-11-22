@@ -8,6 +8,7 @@
         }
         $("#message-bar-render").fadeOut();
     }
+    
     function setRenderError(errorMessage) {
         clearRenderError();
         $("#message-bar-render").html(errorMessage);
@@ -22,6 +23,7 @@
         }
         $("#message-bar-edit").fadeOut();
     }
+    
     function setEditError(errorMessage) {
         clearEditError();
         $("#message-bar-edit").html(errorMessage);
@@ -38,21 +40,24 @@
 
             chords.push(chordName);
         });
-
+        console.log("CHRDS:", chords);
         return chords;
     }
 
     function conventionalizeOutput() {
-        if ( getOutputConvention() === "B" ) {
+        var convention = getOutputConvention();
+        console.log("OUTPUT CONVENTION:", convention);
+        if ( convention === "B" ) {
             return;
         }
         
         const $chordElems = $('.chord');
 
         $chordElems.each(function () {
-            var normalizedName = $(this).text();
+            var normalizedName = $(this).text().replace(" ", "");
             
-            var conventionalizedChord = getChordNameInConvention(normalizedName);
+            var conventionalizedChord = window.chordConvention.getChordNameInConvention(normalizedName, convention);
+            console.log("normalizedName:", normalizedName, "->", conventionalizedChord);
 
             $(this).text(conventionalizedChord);
         });
@@ -297,100 +302,14 @@
     }
 
 
-    function germanToEnglish(notename) {
-        switch ( notename ) {
-            case 'H𝄪':
-                return 'B𝄪';
-            case 'H♯':
-                return 'B♯';
-            case 'H':
-                return 'B';
-            case 'B':
-                return 'B♭';
-            case 'B♭':
-                return 'B𝄫';
-            case 'B𝄫':
-                throw new Error("No such note: B𝄫 (convention: German)");
-        }
-        return notename;
-    }
-
-    function englishToGerman(notename) {
-        switch ( notename ) {
-            case 'B𝄪':
-                return 'H𝄪';
-            case 'B♯':
-                return 'H♯';
-            case 'B':
-                return 'H';
-            case 'B♭':
-                return 'B';
-            case 'B𝄫':
-                return 'B♭';
-        }
-        return notename;
-    }
-
-    
-    function normalizeNoteNames(originalChord) {
-        console.log("CONV:", getInputConvention());
-        if ( getInputConvention() === "B" ) {
-            return originalChord;
-        }
-        
-        var m = originalChord.trim().match("^([A-H][♭♯𝄫𝄪]?)(.*?)(/([A-H][♭♯𝄫𝄪]?))?$");
-        if ( !m ) {
-            throw new Error("Not a chord: " + originalChord);
-        }
-        
-        var baseNote = germanToEnglish(m[1]);
-        var quality  = m[2];
-        var bassNote = germanToEnglish(m[4]);
-
-
-        if ( bassNote ) {
-            return baseNote + quality + "/" + bassNote;
-        } else {
-            return baseNote + quality;
-        }
-        
-    }
-
-    function getChordNameInConvention(normalizedChord) {
-        if ( getOutputConvention() === "B" ) {
-            return normalizedChord;
-        }
-        
-        var m = normalizedChord.trim().match("^([A-H][♭♯𝄫𝄪]?)(.*?)(/([A-H][♭♯𝄫𝄪]?))?$");
-        if ( !m ) {
-            throw new Error("Not a chord: " + normalizedChord);
-        }
-
-        var baseNote = m[1];
-        var quality  = m[2];
-        var bassNote = m[4];
-
-        if ( baseNote.startsWith("H") || (bassNote && bassNote.startsWith("H")) ) {
-            throw new Error("H note where it shouldn't be");
-        }            
-
-        var baseNote = englishToGerman(baseNote);
-        var bassNote = englishToGerman(bassNote);
-        
-        if ( bassNote ) {
-            return baseNote + quality + "/" + bassNote;
-        } else {
-            return baseNote + quality;
-        }
-        
-    }
-    
 
     /**
      * Saves the original (before transponation) chord name in a normalized
      * format to the element.
      **/
     function saveNormalizedFormOfChords() {
+        var convention = getInputConvention();
+        
         $('.chord').each(function () {
             var normalizedOriginalName = $(this).text()
                                                 .replaceAll("##", "𝄪")
@@ -398,7 +317,7 @@
                                                 .replaceAll("#", "♯")
                                                 .replaceAll("b", "♭");
 
-            var normalizedName = normalizeNoteNames(normalizedOriginalName);
+            var normalizedName = window.chordConvention.normalizeChord(normalizedOriginalName, convention);
 
             $(this).attr('data-normalized-original', normalizedOriginalName);
             $(this).attr('data-normalized', normalizedName);
