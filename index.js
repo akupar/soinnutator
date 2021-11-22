@@ -160,7 +160,12 @@
         }
 
         for ( var i in renderHooks ) {
-            renderHooks[i]();
+            try {
+                renderHooks[i]();
+            } catch ( error ) {
+                console.error("Render hook error:", error);
+                return;
+            }
         }
     }
 
@@ -328,7 +333,14 @@
                                                 .replaceAll("#", "♯")
                                                 .replaceAll("b", "♭");
 
-            var normalizedName = window.chordConvention.normalizeChord(normalizedOriginalName, convention);
+            var normalizedName;
+            
+            try {
+                normalizedName = window.chordConvention.normalizeChord(normalizedOriginalName, convention);
+            } catch ( error ) {
+                setEditError(error);
+                return;
+            }
 
             $(this).attr('data-normalized-original', normalizedOriginalName);
             $(this).attr('data-normalized', normalizedName);
