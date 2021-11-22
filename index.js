@@ -41,6 +41,23 @@
 
         return chords;
     }
+
+    function conventionalizeOutput() {
+        if ( getOutputConvention() === "B" ) {
+            return;
+        }
+        
+        const $chordElems = $('.chord');
+
+        $chordElems.each(function () {
+            var normalizedName = $(this).text();
+            
+            var conventionalizedChord = getChordNameInConvention(normalizedName);
+
+            $(this).text(conventionalizedChord);
+        });
+    }
+
     
     function mapChords(mapping) {
         const $chordElems = $('.chord');
@@ -52,8 +69,6 @@
                 throw new Error("No mapping for chord " + normalizedName);
             }
             
-            transponatedChord = getChordNameInConvention(transponatedChord);
-
             $(this).text(transponatedChord);
 
         });
@@ -463,6 +478,7 @@
         renderHooks.push(saveNormalizedFormOfChords);
         renderHooks.push(fancifyChords);        
         renderHooks.push(doTransponation);
+        renderHooks.push(conventionalizeOutput);
         
         render();
     });
