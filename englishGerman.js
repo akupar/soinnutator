@@ -26,10 +26,10 @@
             return originalChord;
         }
         
-        var m = normalizedChord.trim().match("^([A-H](𝄫|𝄪|♭|♯)?)(.*?)/([A-H](𝄫|𝄪|♭|♯))$");
+        var m = originalChord.trim().match("^([A-H](𝄫|𝄪|♭|♯)?)(.*?)/([A-H](𝄫|𝄪|♭|♯))$");
         
         if ( !m ) {
-            m = normalizedChord.trim().match("^([A-H](𝄫|𝄪|♭|♯)?)(.*?)$");
+            m = originalChord.trim().match("^([A-H](𝄫|𝄪|♭|♯)?)(.*?)$");
         }
         
         if ( !m ) {
