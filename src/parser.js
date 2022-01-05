@@ -112,7 +112,7 @@ function intersectAll(arrays) {
 
 
 
-function handleLineGroup(lines, firstIndex) {
+function parseLineGroup(lines, firstIndex) {
 
     var lineGroup = {
         lines: lines,
@@ -161,10 +161,18 @@ function getBlock(rowsOfPart, barSymbol, firstLineNumber) {
     var block = {};
     
     block.rows = rowsOfPart.map(function (rowOfPart, index) {
+        var text = rowOfPart;
+        var halfBar = undefined;
+        if ( barSymbol === null && (rowOfPart === "|" || rowOfPart === "¦") ) {
+            // To display bar only on this line
+            halfBar = rowOfPart;
+            text = "";
+        }
         return {
             index: index - firstLineNumber,
-            text: rowOfPart,
-            bar: barSymbol
+            text,
+            bar: barSymbol,
+            halfBar,
         };
     });
     
@@ -189,52 +197,91 @@ function hasBar(barType, linesForParts) {
 }
 
 
-function buildMeasures(lineBlock) {
+function replaceStartAndEndSpaces(linesOfPart, hasBarBefore) {
+    var starts = linesOfPart.map(function (part) {
+        if ( hasBarBefore ) {
+            return 0;
+        }
+        
+        var match = part.match(/^ +/);
+        if ( match ) {
+            return match[0].length;
+        }
+        return 0;
+    });
+
+    
+    var ends = linesOfPart.map(function (part) {
+        var match = part.match(/  +$/);
+        if ( match ) {
+            return match[0].length;
+        }
+        return 0;
+    });
+    
+    var lenStarts = starts.reduce(function (acc, val) { return Math.min(acc, val); });
+    var lenEnds   = ends.reduce(function (acc, val) { return Math.min(acc, val); });
+
+    console.log(starts, ends, lenStarts, lenEnds);
+    
+    var out = linesOfPart.map(
+        function (lineForPart) {
+            // Merkki @ toimii näkymättömänä ankkurina.
+            lineForPart = lineForPart.replace(/^ +/, '@'.repeat(lenStarts));
+            lineForPart = lineForPart.replace(/  +$/, '@'.repeat(lenEnds));
+            return lineForPart.replace(/@/g, "&nbsp;");
+        }
+    );
+
+    return out;
+}
+
+function parseMeasures(lineBlock) {
     var out = [];
     var breaks = lineBlock.breaks;
     var parts = lineBlock.lines.map((line) => split_string(line, breaks));
     var i;
     var bar = null;
+    // Each part group is a list of of aligned parts on each lines.
     var partGroups = transpose(parts);
 
-    partGroups.forEach(function (linesForParts, index) {
 
-        var starts = linesForParts.map(function (part) { return part.match(/^  +/); });
-        var ends   = linesForParts.map(function (part) { return part.match(/  +$/); });
+    var halfBar = true;
+
+    partGroups.forEach(function (linesOfPart, index) {
+
+        linesOfPart = replaceStartAndEndSpaces(linesOfPart, !!bar || halfBar);
+
+        console.log("lines for parts:", linesOfPart);
         
-        var lenStarts = starts.reduce(function (acc, val) { return Math.min(acc, val); });
-        var lenEnds   = ends.reduce(function (acc, val) { return Math.min(acc, val); });
-
-	linesForParts = linesForParts.map(
-            function (lineForPart) {
-                // Merkki @ toimii näkymättömänä ankkurina.
-                lineForPart = lineForPart.replace(/^  +/, '@'.repeat(lenStarts));
-                lineForPart = lineForPart.replace(/  +$/, '@'.repeat(lenEnds));
-                return lineForPart.replace(/@/g, "&nbsp;");
-            }
-        );
 
         // Ohitetaan tyhjät.
-        if ( linesForParts.every(function(lineForPart) { return lineForPart === " "; }) ) {
+        if ( linesOfPart.every(function(lineForPart) { return lineForPart === " "; }) ) {
             return out;
-        } else if ( hasBar("|", linesForParts) ) {
+        } else if ( hasBar("|", linesOfPart) ) {
             bar = "|";
-        } else if ( hasBar("¦", linesForParts) ) {
+        } else if ( hasBar("¦", linesOfPart) ) {
             bar = "¦";
         } else {
-            if ( linesForParts.every(function(lineForPart) { return lineForPart.match(/^  +$/); }) ) {
-                linesForParts = linesForParts.map(function (lineForPart) { return lineForPart.replaceAll(" ", "$"); });
+            if ( linesOfPart.every(function(lineForPart) { return lineForPart.match(/^  +$/); }) ) {
+                linesOfPart = linesOfPart.map(function (lineForPart) { return lineForPart.replaceAll(" ", "$"); });
             }
             
-            var measureBlock = getBlock(linesForParts, bar, lineBlock.firstIndex);
+            var measureBlock = getBlock(linesOfPart, bar, lineBlock.firstIndex);
 	    out.push(measureBlock);
 
             
             // If all lines end in space, mark as bar so we can get a space after the measure.
-            if ( linesForParts.every(function(lineForPart) { return lineForPart.endsWith(" "); }) ) {
+            if ( linesOfPart.every(function(lineForPart) { return lineForPart.endsWith(" "); }) ) {
                 bar = " ";
             } else {
                 bar = null;
+            }
+
+            if ( linesOfPart.some(function (lineForPart) { return (lineForPart.indexOf("|") > -1); }) ) {
+                halfBar = true;
+            } else {
+                halfBar = false;
             }
         }
     });
@@ -244,7 +291,7 @@ function buildMeasures(lineBlock) {
 
 
 
-function handlePhrase(text) {
+function parsePhrase(text) {
     var phrase = {
         measures: [
             {
@@ -275,20 +322,20 @@ function handlePhrase(text) {
         return line.trimEnd() !== "#0";
     });
 
-    var lineBlock = handleLineGroup(regularLines, positiveStartIndex);
+    var lineBlock = parseLineGroup(regularLines, positiveStartIndex);
 
-    phrase.measures = buildMeasures(lineBlock);
+    phrase.measures = parseMeasures(lineBlock);
 
     return phrase;
 }
 
-function handleSection(text) {
+function parseSection(text) {
     var section = {
         title: null,
         phrases: []
     };
     
-    var phrases = text.split(/\n\n\n*/).filter(function (text) { return text !== "" });
+    var phrases = text.split(/\n\n\n*/).filter(function (text) { return text !== ""; });
 
     if ( phrases.length === 0 ) {
         return section;
@@ -300,7 +347,7 @@ function handleSection(text) {
 	phrases.shift();
     }
 
-    section.phrases = phrases.map(handlePhrase);
+    section.phrases = phrases.map(parsePhrase);
 
     return section;
 }
@@ -337,7 +384,7 @@ function parse(text) {
     var sections = text.split(/\n(?=#section)/);
 
     sections.forEach(function(sectionText) {
-	doc.sections.push(handleSection(sectionText));
+	doc.sections.push(parseSection(sectionText));
     });
 
     return doc;

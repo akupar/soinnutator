@@ -33,6 +33,7 @@ function getBarClass(barSymbol) {
 
 
 function getTd(blockData) {
+    console.log("BOCK", blockData);
     var text = blockData.text.trim();
     if ( text === "" ) {
         text = "&ZeroWidthSpace;";
@@ -51,6 +52,10 @@ function getTd(blockData) {
     
     if ( blockData.index === 0 && text.match("^([A-H][♭♯#b]?)") ) {
         $td.addClass("chord");
+    }
+
+    if ( blockData.halfBar ) {
+        $td.addClass(getBarClass(blockData.halfBar));
     }
 
     return $td;
