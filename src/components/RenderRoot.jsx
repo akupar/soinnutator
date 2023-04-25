@@ -11,8 +11,8 @@ export default function RenderRoot({ doc, fontSize }) {
                 doc.rightTitle && <span className="right">{ doc.rightTitle }</span>
             }
             {
-                doc.sections?.map((section, index) => (
-                    <Section key={index} doc={section} />
+                doc.sections?.map(section => (
+                    <Section key={section.id} id={section.id} doc={section} />
                 ))
             }
         </div>

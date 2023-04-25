@@ -1,5 +1,5 @@
 import { parseLineGroup } from './lineGroup';
-
+import { makeId, resetIds } from './id';
 
 
 
@@ -12,8 +12,10 @@ export default class Parser {
 
     parsePhrase(text) {
         const phrase = {
+            id: makeId('phr'),
             measures: [
                 {
+                    id: makeId('m'),
                     rows : [],
                     breaks : [],
                     firstIndex: 0
@@ -47,6 +49,7 @@ export default class Parser {
     parseSection(text) {
         const section = {
             title: null,
+            id: makeId('s'),
             phrases: []
         };
 
@@ -82,6 +85,7 @@ export default class Parser {
     }
 
     parse(text, inputConvention) {
+        resetIds();
         const doc = {
             title: null,
             rightTitle: null,

@@ -1,4 +1,6 @@
 import { normalizeChord } from '../englishGerman';
+import { makeId } from './id';
+
 
 function getChordLineBreaks(chordLine) {
     const breaks = new Set();
@@ -133,6 +135,7 @@ class BlockLine {
         this.spaceAfter = spaceAfter;
         this.data = data;
         this.bar = bar;
+        this.id = makeId('m');
     }
 
     get text() {
@@ -166,6 +169,7 @@ function getBlock(rowsOfPart, chordLineIndex, inputConvention) {
 
         return {
             index: index - chordLineIndex,
+            id: makeId('m'),
             spaceAfter,
             text,
             bar,
