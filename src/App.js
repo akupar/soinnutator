@@ -149,7 +149,7 @@ function App() {
     const loadExample = async (name) => {
         try {
             const result = await fetch(`/soinnutator/examples/${name}.txt`);
-            if ( result.headers.get('content-type') !== "text/plain; charset=UTF-8" ) {
+            if ( result.headers.get('content-type').toLowerCase() !== "text/plain; charset=utf-8" ) {
                 throw new Error(`Couldn't load ${name}`);
             }
             const text = await result.text();
