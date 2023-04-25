@@ -7,6 +7,7 @@ import Message from './components/Message';
 import RenderRoot from './components/RenderRoot';
 import DoubleIndicator from './components/DoubleIndicator';
 import BaseNote from './components/BaseNote';
+import ExampleLink from './components/ExampleLink';
 
 import { initialCode } from './config';
 
@@ -226,11 +227,11 @@ function App() {
                     <div className="examples-group">
                         <h3>Examples</h3>
                         <div className="examples">
-                            <button onClick={() => loadExample("Drunken sailor")}>Drunken sailor</button>
-                            <button onClick={() => loadExample("Vihreät niityt")}>Vihreät niityt</button>
-                            <button onClick={() => loadExample("Polte")}>Polte</button>
-                            <button onClick={() => loadExample("Amsterdam")}>Amsterdam</button>
-                            <button onClick={() => loadExample("Hello")}>Hello</button>
+                            <ExampleLink load={loadExample} name={"Drunken sailor"} />
+                            <ExampleLink load={loadExample} name={"Vihreät niityt"} />
+                            <ExampleLink load={loadExample} name={"Polte"} />
+                            <ExampleLink load={loadExample} name={"Amsterdam"} />
+                            <ExampleLink load={loadExample} name={"Hello"} />
                         </div>
                     </div>
                     <div className="code-group">
@@ -246,7 +247,7 @@ function App() {
                 </div>
             </ConventionContext.Provider>
         </div>
-    );
+);
 }
 
 export default App;

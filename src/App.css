@@ -363,7 +363,7 @@ h2 {
     align-items: center;
 }
 
-.examples button{
+.example-link {
     display: inline-block;
     background-color: inherit;
     border: none;
@@ -372,6 +372,6 @@ h2 {
     max-width: max-content;
 }
 
-.examples button:hover {
+.example-link:hover {
     text-decoration: underline;
 }
