@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import Section from './Section';
 
 export default function RenderRoot({ doc, fontSize }) {

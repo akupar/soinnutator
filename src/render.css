@@ -26,17 +26,16 @@ table.measure-block {
 
 .phrase {
     padding-left: 0.5em;
+    margin-bottom: 1ex;
 }
 
-td {
-    padding: 0.5em 0;
-}
 
-td.space-after {
+
+.space-after {
     padding-right: 0.5ch;
 }
 
-td.bar {
+.bar, .bar-2 {
     padding-left: 0.5ch;
 }
 
@@ -48,21 +47,6 @@ td.bar {
     border-left: dotted 1px gray;
 }
 
-table.bar td {
-    padding-left: 0.5ch;
-}
-
-table.bar-2 td {
-    padding-left: 0.5ch;
-}
-
-td.bar-space {
-    padding-left: 0.5ch;
-}
-
-.bar-end {
-    margin-right: 0.5ch;
-}
 
 input[type="number"] {
     width: 4em;
@@ -92,8 +76,8 @@ textarea {
 }
 
 .line-0 {
-    font-weight: 600;
-    font-family: "Arial", sans-serif;
+    font-weight: 400;
+    font-family: "Montserrat", sans-serif;
     color: #101010;
 }
 
@@ -127,7 +111,12 @@ textarea {
 h1, h2 {
     font-size: 90%;
     font-family: sans-serif;
-    margin-bottom: 0;
+    padding-bottom: 0.5em;
+    margin: 1em 0;
+}
+
+h2 {
+    border-bottom: dashed 1px lightgrey;
 }
 
 #message-bar-render, #message-bar-edit {
@@ -156,6 +145,7 @@ h1, h2 {
     margin-top: 1em;
 }
 
-table {
-    margin-top: 0.5em;
+
+.chord-only-measure {
+    min-width: 3em;
 }

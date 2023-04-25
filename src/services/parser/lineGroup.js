@@ -45,7 +45,6 @@ function getForcedBreaks(str) {
     let match;
     while ( (match = re.exec(str)) !== null ) {
 	const point = match.index;
-        const len = match[0].length;
 	breaks.add(point);
     }
 
@@ -130,12 +129,12 @@ class Chord {
 class BlockLine {
     data;
 
-    constructor(index, spaceAfter, data, bar) {
+    constructor(index, spaceAfter, data, bar, id) {
         this.index = index;
         this.spaceAfter = spaceAfter;
         this.data = data;
         this.bar = bar;
-        this.id = makeId('m');
+        this.id = id;
     }
 
     get text() {
@@ -161,9 +160,9 @@ function getBlock(rowsOfPart, chordLineIndex, inputConvention) {
         // Chord row
         if ( index - chordLineIndex === 0 ) {
             try {
-                return new BlockLine(0, spaceAfter, text !== "" ? new Chord(text, inputConvention) : "", bar);
+                return new BlockLine(0, spaceAfter, text !== "" ? new Chord(text, inputConvention) : "", bar, makeId('m'));
             } catch ( _ ) {
-                return new BlockLine(0, spaceAfter, text, bar);
+                return new BlockLine(0, spaceAfter, text, bar, makeId('m'));
             }
         }
 

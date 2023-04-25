@@ -15,7 +15,7 @@ export default function RowItem({ doc }) {
     }
 
     return (
-        <td className={`${isChord ? 'chord' : ''} ${doc.bar ? getBarClass(doc.bar) : ''} ${doc.spaceAfter ? 'space-after' : ''}`}>
+        <span className={`${isChord ? 'chord' : ''} ${doc.bar ? getBarClass(doc.bar) : ''} ${doc.spaceAfter ? 'space-after' : ''}`}>
             {
                 chordOut.split(/([$@])/g).map((part, index) =>
                     part === '$' ? (<span key={index} className="spacer"></span>) : (
@@ -23,6 +23,6 @@ export default function RowItem({ doc }) {
                     )
                 )
             }
-        </td>
+        </span>
     );
 };

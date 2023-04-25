@@ -2,10 +2,10 @@ import RowItem from './RowItem';
 
 export default function Row({ doc }) {
     return (
-        <tr className={`line-${doc.index}`}>
+        <div className={`line line-${doc.index}`} id={doc.id}>
             {
                 <RowItem doc={doc} />
             }
-        </tr>
+        </div>
     );
 };
