@@ -83,7 +83,7 @@ function App() {
     useEffect(() => {
         if ( parsed.title && parsed.rightTitle ) {
             document.title = parsed.title + " — " + parsed.rightTitle;
-        } else {
+        } else if ( parsed.title ?? parsed.rightTitle ) {
             document.title = parsed.title ?? parsed.rightTitle;
         }
     }, [parsed]);
