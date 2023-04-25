@@ -1,0 +1,122 @@
+#title Amsterdam
+#right Hector
+
+
+#section [Verse 1]
+
+        | Am                  | Em
+Kirottu | Amsterdam, siunattu | Amsterdam,
+
+    | F                 | E         E7
+ota | syliisi voipuneet | seilorit nuo!
+
+     | Am                  | Em
+Meri | heitä kun syö, meri | heitä kun lyö -
+
+       | Dm7        E7             | Am
+nyt ne | huilaa ja  hoilaa, nyt he | laulaa ja juo...
+
+       | C               | G7       E7
+Heidän | känninsä on kuoleman kaltainen
+
+      | Am                  | E7
+ja he | hukkuvat nyt syvyyksiin unien...
+
+         | F              | Em
+Sylistäs | Amsterdam hyvä | syntyä on.
+
+      | Dm7       E7        | Am
+Meri luovuttaa heidät huikaisuun auringon...
+
+
+
+#section [Verse 2]
+
+        | Am                  | Em
+Kirottu | Amsterdam, siunattu | Amsterdam,
+
+      | F                  | E    E7
+sinun | seiloris syö kalaa | lemuavaa!
+
+      | Am                   | Em
+Ja he | hampaitaan näyttävät | kohtalolleen
+
+      | Dm7        | E7                | Am
+ja he | haistattaa | kuulle, eivät saa | kyllikseen!
+
+      | C                        | G7         E7
+He kourin parkkiintunein tarttuu | maan laitoihin,
+
+      | Am                   | E7
+meren | partaita lyö nyrkein | repeilevin...
+
+       | F                   | Em
+Heidän | mittansa täyttyy ja | verensä vapisee,
+
+      | Dm7            E7       | Am
+ja he | nousee ja mennessään vain | röyhtäilee...
+
+
+
+#section [Verse 3]
+
+       | Am                  | Em
+Viaton | Amsterdam, syntinen | Amsterdam,
+
+        | F                 | E         E7
+syliisi | viettelet seilorit | kiimaiset!
+
+       | Am                      | Em
+Ja kun | haitari soi, innoissaan | vaikeroi,
+
+      | Dm7         E7     | Am
+himon | huurussa he naisia | kouria voi...
+
+      | C                   | G7       E7
+Ja he | tanssiessaan nauraa | nauramistaan,
+
+       | Am                    | E7
+kunnes | kiihkollaan saa soiton | vaikenemaan...
+
+      |                 | Em
+Liha sykähdellen jatkaa | rytmiä sen -
+
+         | Dm7      E7            | Am
+meriaamu | on tyyni ja rauhallinen...
+
+
+
+#section [Verse 4]
+
+         | Am            | Em
+Sylissäs | Amsterdam merimiehesi saa
+
+        | F                | E         E7
+janonsa | sammuttaa, janon | pohjattoman...
+
+          | Am                | Em
+Kunniaks’ | juovat he huorien | kunniattomain,
+
+       | Dm7      E7    | Am
+joille | rakkaus on sanahelinää vain!
+
+      | C                   | G7              E7
+Ja he | naisille juo, jotka | ruumiinsa heille suo,
+
+      | Am                 | E7
+jotka | itsensä myy, joita | rahalla saa...
+
+       | F                        | Em
+Ja kun | pullo on juotu ja tähdet | kalvenneet
+
+    | Dm7        E7         | Am
+kusemalla he vuodattaa eron | kyyneleet...
+
+
+#section [Outro]
+
+        | Am                  | Em
+Kirottu | Amsterdam, siunattu | Amsterdam
+
+        | Am                  | Em
+Kirottu | Amsterdam, siunattu | Amsterdam

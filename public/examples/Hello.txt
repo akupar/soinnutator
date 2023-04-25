@@ -1,0 +1,103 @@
+#title Hello
+#right Lionel Richie
+
+#section Intro
+
+| Am9 . G6 . | Fmaj7 . G6 Fmaj7
+|            |
+
+| Am9 . G6 . | Fmaj7 . G6 Fmaj7
+|            |                  I've
+
+#section Verse
+
+| Am9              G6           | Fmaj7   ¦ G6  Fmaj7
+| been alone with you inside my | mind,          and
+
+| Am9                G6                  | Fmaj7            ¦ G6   Fmaj7
+| in my dreams I've kissed your lips   a | thousand times...      I
+
+| Am9                 G6            | Fmaj7  ¦ G6   Fmaj7
+| sometimes see you pass outside my |  door          Hel-
+
+
+#section Chorus
+
+| Am9     G6         | Fmaj7             | A
+| -lo,         is it | me you're looking | for?  I can
+
+| Dm             G           | C              F
+| see it in your eyes, I can | see it in your smile;  you're
+
+| Bb            Am/E e        | Am       E7/B  Am/C  E7/B
+| all I've ever wanted and my | arms are open  wide.     'Cause you
+
+| Dm                G           | C                 F
+| know just what to say and you | know just what to do;  and I
+
+| Bb               Am/E               | Am9 . G6 . Fmaj7 . G6 Fmaj7
+| want to tell you so    much, I love | you
+
+| Am9   G6     | Fmaj7   G6 Fmaj7
+|              |
+
+
+#section Verse
+
+  | Am9             G6               | Fmaj7  $$$  G6   Fmaj7
+I | long to see the sunlight in your | hair,            and
+
+| Am9                 | G6               | Fmaj7     $$    G6   Fmaj7
+| tell you time and time again,      how | much I care.       Some-
+
+| Am9              | G6             | Fmaj7 $$$ G6   Fmaj7
+| -times I feel my | heart will overflow
+
+#section Chorus
+
+    | Am9   G6              | Fmaj7              A  .
+He- | llo,        I've just | got to let you know     'cause I
+
+| Dm                G        | C               F  .
+| wonder where you are and I | wonder what you do.    Are you
+
+| Bb                  E          | Am/E      E7/B | Am/C  E7/B
+| somewhere feeling lonely or is | someone loving | you?       Tell me
+
+| Dm              G         | C             F
+| how to win your heart for | I haven't got a clue; but
+
+| Bb              Am/e e            | Am9 . G6 . | Fmaj7 . G6 Fmaj7
+| let me start by say - ing, I love | you        |
+
+| Am9 . G6 . | Fmaj7 . G6 Fmaj7
+|
+
+
+#section [Solo]
+
+| Am9         .           G6       .      | Fmaj7    .  G6  Fmaj7
+|                                         |
+
+|   Am9       .    G6     .       | Fmaj7   .      G6        Fmaj7
+|                                 |
+
+| Am9        .     G6        .      | Fmaj7     .    G6  Fmaj7
+|                                   |
+
+#section Chorus
+
+   | Am9     .    G6     .     | Fmaj7  .           A      .
+Hello,                   is it | me you're looking for?        'Cause I
+
+| Dm                G        | C               F  .
+| wonder where you are and I | wonder what you do.    Are you
+
+| Bb                  E          | Am/E      E7/B | Am/C  E7/B
+| somewhere feeling lonely or is | someone loving | you?       Tell me
+
+| Dm              G         | C             F
+| how to win your heart for | I haven't got a clue; but
+
+| Bb              Am/e e            | Am9 . G6 . | Fmaj7 . G6 Fmaj7
+| let me start by say - ing, I love | you        |

@@ -1,0 +1,377 @@
+* {
+    box-sizing: content-box;
+}
+
+body {
+    max-height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: yellowgreen;
+}
+
+.App {
+    text-align: center;
+    max-height: 100vh;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: minmax(max-content, auto) minmax(30%, 1fr) minmax(30%, 1fr);
+}
+
+
+.main {
+    border: solid gray 1px;
+    padding: 0.5em;
+    display: grid;
+    grid-template-rows: min-content;
+    background-color: whitesmoke;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1ex;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+.blocks-section {
+    min-height: 33%;
+}
+
+.bottom-section {
+    display: grid;
+    min-height: 33%;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 0.5em;
+    padding: 0.5em;
+}
+
+.code-group {
+    grid-row: 1/2;
+    grid-column: 2/3;
+    padding: 0.5em;
+    overflow: hidden;
+}
+
+.controls {
+    height: 4ex;
+}
+
+textarea {
+    height: calc(100% - 4ex - 2*0.5em);
+    width: 99%;
+}
+
+.help {
+    grid-row: 1/2;
+    grid-column: 3/4;
+    text-align: left;
+    overflow-y: auto;
+    border: solid gray 1px;
+    padding-left: 0.5em;
+    background-color: ivory;
+}
+
+.help-content {
+
+}
+
+
+.blocks {
+    display: flex;
+    gap: 1em;
+    padding: 0.5em;
+    min-height: calc(100% - 0.5em);
+}
+
+.blocks > * {
+    border-radius: 5px;
+}
+
+
+
+
+
+.item {
+    border: solid gray 1px;
+    background-color: #fffd;
+    display: inline-block;
+    transition: 0.1s;
+}
+
+.item.changed {
+    transform: scale(0%);
+    transition: 0.1s ease;
+}
+
+
+.limbo-item.removed {
+    transform: scale(0%);
+    transition: 0.1s ease;
+}
+
+
+
+.stack {
+    border: solid gray 1px;
+    min-width: 10em;
+    display: flex;
+    flex-direction: column;
+    padding: 0.2em;
+    background-color: #698269;
+}
+
+.stack > div {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100%;
+    gap: 0.2em;
+}
+
+
+.queue {
+    border: solid gray 1px;
+    min-width: 10em;
+    display: flex;
+    flex-direction: column;
+    padding: 0.2em;
+    background-color: #AA5656;
+}
+
+.queue > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    gap: 0.2em;
+}
+
+.heap {
+    border: solid gray 1px;
+    min-width: 10em;
+    display: flex;
+    flex-direction: column;
+    background-color: #B99B6B;
+    padding: 0.2em;
+}
+
+.heap > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    gap: 0.2em;
+}
+
+
+.globals {
+    border: solid gray 1px;
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em;
+    background-color: #F1DBBF;
+    gap: 0.5em;
+}
+
+.globals > span {
+    height: min-content;
+    padding: 0.2em;
+}
+
+
+.dict {
+    border: solid gray 1px;
+    min-width: 10em;
+    background-color: #826969;
+}
+
+.vector h2, .heap h2, .dict h2, .queue h2, .stack h2 {
+    color: #eee;
+}
+
+.vector {
+    border: solid gray 1px;
+    min-width: 10em;
+    background-color: #696982;
+}
+
+.vector > table, .dict > table {
+    height: max-content;
+    width: 100%;
+}
+
+.vector-index, .dict-key {
+    font-size: smaller;
+    color: white;
+    padding: 0.2em;
+    text-align: right;
+    width: 1em;
+}
+
+.vector-index td, .dict-index td {
+    height: min-content;
+}
+
+.vector-value .item, .dict-value .item {
+    width: 100%;
+}
+
+
+h2 {
+    margin: 0.2em;
+    font-size: smaller;
+    border-bottom: 1px solid #fff3;
+    color: #333;
+}
+
+
+.json-infra {
+    color: #999999;
+}
+
+.json-key {
+    color: #333;
+}
+
+
+.json-string {
+   color: #709f11;
+}
+
+.json-number {
+   color: #a7266e;
+}
+
+.json-special {
+   color: #0077aa;
+}
+
+
+
+.scroll-pane {
+    overflow: scroll;
+    border: 1px solid gray;
+    height: calc(100% - 4ex);
+    background-color: white;
+    padding: 0.2em;
+}
+
+.editor {
+    min-height: 100%;
+}
+
+
+.message-box {
+    position: relative;
+    position: absolute;
+    width: 100%;
+    margin: auto;
+}
+
+.app-message {
+    border: solid 3px #000a;
+    border-radius: 1em;
+    position: relative;
+    top: 4em;
+    width: max-content;
+    margin: auto;
+    padding: 0.5em;
+    z-index: 1;
+}
+
+.app-message.error {
+    background-color: salmon;
+}
+
+.app-message.success {
+    background-color: chartreuse;
+}
+
+
+.link-button {
+    background-color: initial;
+    border: none;
+    color: #107faf;
+    cursor: pointer;
+}
+
+.hl-bar {
+    color: slategray;
+    background-color: inherit;
+}
+
+.hl-chord {
+    color: blue;
+    background-color: inherit;
+}
+
+.hl-pragma {
+    color: green;
+    background-color: inherit;
+}
+
+.hl-separator {
+    /*background-color: #00aaaa33;*/
+    background-color: unset;
+    /*border-bottom: dotted 1px black;*/
+    border-right: red dashed 0.5px;
+    position: relative;
+    left: -1px;
+}
+
+
+.DraftEditor-root {
+    text-align: left;
+    font-family: Fira code, Fira Mono, monospace;
+    font-size: 12,
+}
+
+
+.rendering {
+    text-align: left;
+    padding: 0;
+    overflow: scroll;
+    width: 100vw;
+    background-color: #fafafa;
+}
+
+.rendered {
+    margin: 0;
+}
+
+
+
+.double-indicator {
+    display: inline-block;
+    min-width: 1.2em;
+    text-align: center;
+}
+
+.render-toolbar {
+    box-shadow: 0px 3px 10px #0009;
+    z-index: 1;
+}
+
+.bottom-section {
+    box-shadow: 0px -3px 10px #0009;
+    z-index: 1;
+}
+
+.examples {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.examples button{
+    display: inline-block;
+    background-color: inherit;
+    border: none;
+    color: royalblue;
+    cursor: pointer;
+    max-width: max-content;
+}
+
+.examples button:hover {
+    text-decoration: underline;
+}
