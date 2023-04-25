@@ -1,0 +1,97 @@
+#title Vihreät niityt
+#right Olavi Virta
+
+
+#section [Intro]
+
+| Am  Dm  | Am  E7
+| @   @   | @   @
+
+
+#section [Verse 1]
+
+| Am         Dm       | Am         E7
+| Vie sävel  muiston, | niittyjen  luo
+
+| Am          Dm           | Am          E7
+| Niin palaa  mieleen taas | onnen aika  tuo
+
+| F           H7         | Em7           A7
+| Taas puron  muistan ja | loisteen auringon
+
+| Dm7          G7          | Cmaj7       E7
+| Taas niitty  vihrein mun | mielessäni  on
+
+| Am         Dm          | Am    E     | Am
+| Vei sinun  luokses tie | niin   huoleton
+
+
+#section [Interlude]
+
+Am  Dm  | Am  E7
+@   @   | @   @
+
+
+#section [Verse 2]
+
+| Am          Dm     | Am       E7
+| Pois on jo  niityn | vihreys  kai
+
+| Am       Dm          | Am          E7
+| Ei puro  virtaa pois | päivänvalo  sai
+
+| F        H7          | Em7           A7
+| En enää  koskaan kai | löytää häntä  voi
+
+| Dm7        G7          | Cmaj7        E7
+| Ken mulle  kerran niin | suuren ilon  soi
+
+| Am         Dm         | F7  E7   | Am
+| Yö niityt  vihreimmät | mustiksi | loi
+
+
+#section [Interlude]
+
+Am  Dm | Am  E
+@   @  | @   @
+
+
+#section [Bridge]
+
+| F               | Dm7   G7    | C
+|   On sadepilvet | yllä  niittyjen
+
+| Dm                    | G7          C  E7
+| Ystävääni mistään kai | löydä minä  en
+
+| Am                     | F             Dm
+|     Yön usvaan pois jo | kaikki häviää
+
+| Am        Dm6    | Dm6         E7
+| Sydämeni  lämmön | talvi hyydyttää
+
+
+
+#section [Verse 3]
+
+    | Am        Dm     | Am        E7
+Jos | on sydän  lämmin | rinnassa  sun
+
+| Am         Dm        | Am           E7
+| Niin ehkä  kertoo se | toiveistani  mun
+
+| F          H7           | Em7        A7
+| Jos vielä  muistaa voit | niityn entisen
+
+| Dm7          G7           | Cmaj7    E7
+| Niin saavut  jälleen kuin | uni suloinen
+
+     | Am        Dm    | F7     E7      | Am
+Taas | kanssasi  alkaa | saan     rakkauden
+
+
+
+#section [Outro]
+
+Am  Dm  | Am  E7  | Am
+@   @   | @   @   | @

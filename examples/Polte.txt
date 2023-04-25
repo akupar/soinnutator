@@ -1,0 +1,174 @@
+#title Polte
+#right Lauri Tähkä
+
+#section Instrum.
+
+| Am $$ | F/A $$ | Am $$ | Em7 $$
+
+#section 1. säkeistö
+
+| Am
+| Kuuntelee
+
+|                          | G
+| @ Mua tähtitaivas täällä | kuuntelee
+
+|                            | F  ¦    ¦     ¦ F/E
+| @ kun huudan ääneen, miksi | pois ei ¦ mee @
+
+| Dm7 ¦     ¦ Em7 ¦      | Am   | Em7
+|     hurja polte pohja- | ton  |
+
+
+#section 2. säkeistö
+
+| Am
+| Haalenee
+
+|                             | G
+| @ Vaik’ vuosi vuodelta vain | haalenee
+
+|                         | F      ¦     F/E
+| @ se rauta rintaa silti | raate- ¦ lee @
+
+| Dm7         ¦ Em7      | Am | Am   ¦      ¦      ¦ G/B
+| @  Yksinäi- ¦ nen yöni | on | $$$$ ¦ $$$$ ¦ $$$$ ¦ $$$$
+
+
+#section Kerto
+
+| C
+| $$$$ $$$ Kiihkeyttä kuumaa
+
+| Em7
+| $$$$ $$$ Hulluutta huumaa
+
+| Dm7                      | G
+| $$$$ $$$ sait mut tunte- | maan
+
+| C
+| $$$$ $$$ Katso mua pitkään
+
+| Em7
+| $$$$ $$$ Miksi sytytitkään
+
+| Dm7                    | G
+| $$$$ $$$ roihun riehu- | maan
+
+                   | Am
+$$$$ Silloin aika- | naan
+
+
+#section Instrum.
+
+Am   | F/A  | Am   | Em7
+$$$$ | $$$$ | $$$$ |
+
+#section 3. säkeistö
+
+| Am
+| Vieläkin
+
+|                        | G
+| Kai siitä haaveilen mä | vieläkin
+
+|                        | F       ¦     F/E
+| kun tässä istun silmin | poltta- ¦ vin @
+
+| Dm7        ¦ Em7             | Am  | Am   ¦      ¦      ¦ Am/B
+|     hehku- ¦ van sun tahtoi- | sin | $$$$ ¦ $$$$ ¦ $$$$ ¦ $$$$
+
+
+#section Kerto
+
+| C
+| @ Kiihkeyttä kuumaa
+
+| Em7
+|     Hulluutta huumaa
+
+| Dm7                 | G
+|     sait mut tunte- | maan
+
+| C
+| @ Katso mua pitkään
+
+| Em7
+| $$$$ $$$ Miksi sytytitkään
+
+| Dm7                    | G
+| $$$$ $$$ roihun riehu- | maan
+
+
+#section C-osa
+
+| Dm
+| Silmissäs on hetken verran
+
+| B♭
+| polte tuo, sen tunsin kerran
+
+| F                        | Am
+| jos mä jään, vieläkö sen | nään
+
+| Dm
+| Uskonko ja uskallanko
+
+| B♭
+| Tahdonko ja tarkoitanko
+
+| F                       | Am
+| Näänkö sen, muuta toivo | en
+
+#section Instrum.
+
+| Dm   | B♭   | F    | C
+| $$$$ | $$$$ | $$$$ | $$$$
+
+| Dm   | B♭   | F    | G    | G
+| $$$$ | $$$$ | $$$$ | $$$$ | $$$$
+
+
+#section Kerto
+
+| C
+| @ Kiihkeyttä kuumaa
+
+| Em7
+|     Hulluutta huumaa
+
+| Dm7                 | G
+|     sait mut tunte- | maan
+
+| C
+| @ Katso mua pitkään
+
+| Em7
+| $$$$ $$$ Miksi sytytitkään
+
+| Dm7                    | G
+| $$$$ $$$ roihun riehu- | maan
+
+
+#section Kerto
+
+| C
+| $$$$ $$$ Kiihkeyttä kuumaa
+
+| Em7
+| $$$$ $$$ Hulluutta huumaa
+
+| Dm7                      | G
+| $$$$ $$$ sait mut tunte- | maan
+
+| C
+| $$$$ $$$ Katso mua pitkään
+
+| Em7
+| $$$$ $$$ Miksi sytytitkään
+
+| Dm7                    | G
+| $$$$ $$$ roihun riehu- | maan
+
+                   | Amadd9
+$$$$ Silloin aika- | naan

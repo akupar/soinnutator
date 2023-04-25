@@ -1,0 +1,65 @@
+#title Drunken sailor
+#right trad.
+
+#section [Intro]
+
+| Em | D | Em | G D Em
+
+#section [Verse 1]
+
+| Em
+| What will we do with a drunken sailor?
+
+| D
+| What will we do with a drunken sailor?
+
+| Em
+| What will we do with a drunken sailor?
+
+| G     D      Em
+| Early in the morning
+
+#section [Chorus]
+
+| Em
+| Way hay and up she rises
+
+| D
+| Way hay and up she rises
+
+| Em
+| Way hay and up she rises
+
+| G     D      Em
+| Early in the morning
+
+
+#section [Verse 1]
+
+
+| Em
+| Shave his belly with a rusty razor
+
+| D
+| Shave his belly with a rusty razor
+
+
+| Em
+| Shave his belly with a rusty razor
+
+| G     D      Em
+| Early in the morning
+
+#section [Chorus]
+
+| Em
+| Way hay and up she rises
+
+| D
+| Way hay and up she rises
+
+| Em
+| Way hay and up she rises
+
+| G     D      Em
+| Early in the morning
