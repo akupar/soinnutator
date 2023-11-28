@@ -101,7 +101,6 @@ describe("getNoteMappings", function () {
     it("returns correct mapping among others", function () {
         {
             const mappings = degreer.getNoteMappings(["C♯", "D", "E", "F♯", "G♯", "A", "B"]);
-            console.log(mappings['A']);
             expect(mappings['A']).to.deep.equal({
                 'C♯': 'III',
                 D: 'IV',
@@ -120,7 +119,6 @@ describe("getBestMapping", function () {
     it("returns best mapping", function () {
         {
             const mapping = degreer.getBestMapping(["C♯", "D", "E", "F♯", "G♯", "A", "B"]);
-            console.log(mapping);
             expect(mapping).to.deep.equal({
                 'C♯': 'III',
                 D: 'IV',
@@ -136,7 +134,6 @@ describe("getBestMapping", function () {
     it("returns best mapping 2", function () {
         {
             const mapping = degreer.getBestMapping(["C♯", "D♯", "E", "F♯", "G♯", "A", "B"]);
-            console.log(mapping);
             expect(mapping).to.deep.equal({"E": "I", "F♯": "II", "G♯": "III", "A": "IV", "B": "V", "C♯": "VI", "D♯": "VII"});
         }
     });
@@ -185,7 +182,6 @@ describe("getChordMapping", function () {
         it("returns degrees in Am–Em (guess)", function () {
             {
                 const mapping = degreer.getChordMapping(["Am", "Em"]);
-                console.log("GOT:", mapping);
                 expect(mapping).to.deep.equal({ Am: 'Im', Em: 'Vm' });
             }
         });
@@ -255,7 +251,6 @@ describe("getChordMapping", function () {
         it("returns degrees in Am–Em (guess)", function () {
             {
                 const mapping = degreer.getChordMapping(["Am", "Em"]);
-                console.log("GOT:", mapping);
                 expect(mapping).to.deep.equal({ Am: 'Im', Em: 'Vm' });
             }
         });
