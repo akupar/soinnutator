@@ -392,3 +392,17 @@ h2 {
 .line {
     height: 100%;
 }
+
+.structure {
+    display: flex;
+    gap: 0.5em;
+    color: darkblue;
+    flex-flow: wrap;
+}
+
+.part {
+    border: solid gray 1px;
+    border-radius: 0.3em;
+    padding: 0.2em;
+    display: inline-block;
+}

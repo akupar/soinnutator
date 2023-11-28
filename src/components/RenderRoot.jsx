@@ -14,6 +14,10 @@ export default function RenderRoot({ doc, fontSize }) {
                 }
             </h1>
             {
+                doc.metadata?.structure && <Structure parts={doc.metadata.structure}/>
+            }
+
+            {
                 doc.sections?.map(section => (
                     <Section key={section.id} id={section.id} doc={section} />
                 ))
