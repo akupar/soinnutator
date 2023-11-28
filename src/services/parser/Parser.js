@@ -17,7 +17,7 @@ export default class Parser {
             measures: [
                 {
                     id: makeId('m'),
-                    rows : [],
+                    rows: [],
                     breaks : [],
                     firstIndex: 0
                 }

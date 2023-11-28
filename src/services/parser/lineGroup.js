@@ -143,38 +143,39 @@ class BlockLine {
 }
 
 function getBlock(rowsOfPart, chordLineIndex, inputConvention) {
-    const block = {};
-
-    block.rows = rowsOfPart.map(function (rowOfPart, index) {
-        let text = rowOfPart ?? "";
-        let spaceAfter = text.endsWith(" ");
-        let bar = null;
-        if ( text.startsWith("|") || text.startsWith("¦") ) {
-            bar = text[0];
-            text = text.replace(/^[|¦] ?/, "");
-        }
-
-        text = text.replace(/_+$/, "-");
-        text = text.trim();
-
-        // Chord row
-        if ( index - chordLineIndex === 0 ) {
-            try {
-                return new BlockLine(0, spaceAfter, text !== "" ? new Chord(text, inputConvention) : "", bar, makeId('m'));
-            } catch ( _ ) {
-                return new BlockLine(0, spaceAfter, text, bar, makeId('m'));
+    const block = {
+        id: makeId('m'),
+        rows: rowsOfPart.map(function (rowOfPart, index) {
+            let text = rowOfPart ?? "";
+            let spaceAfter = text.endsWith(" ");
+            let bar = null;
+            if ( text.startsWith("|") || text.startsWith("¦") ) {
+                bar = text[0];
+                text = text.replace(/^[|¦] ?/, "");
             }
-        }
 
-        return {
-            index: index - chordLineIndex,
-            id: makeId('m'),
-            spaceAfter,
-            text,
-            bar,
-        };
+            text = text.replace(/_+$/, "-");
+            text = text.trim();
 
-    });
+            // Chord row
+            if ( index - chordLineIndex === 0 ) {
+                try {
+                    return new BlockLine(0, spaceAfter, text !== "" ? new Chord(text, inputConvention) : "", bar, makeId('bl'));
+                } catch ( _ ) {
+                    return new BlockLine(0, spaceAfter, text, bar, makeId('bl'));
+                }
+            }
+
+            return {
+                index: index - chordLineIndex,
+                id: makeId('bl'),
+                spaceAfter,
+                text,
+                bar,
+            };
+
+        }),
+    };
 
     return block;
 }
@@ -201,7 +202,6 @@ export function parseLineGroup(lines, chordLineIndex, inputConvention) {
 
 
     const blocks = partGroups.map(partGroup => getBlock(partGroup, chordLineIndex, inputConvention));
-
 
     return blocks;
 };
