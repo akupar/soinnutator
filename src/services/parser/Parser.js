@@ -1,7 +1,7 @@
 import { parseLineGroup } from './lineGroup';
 import { makeId, resetIds } from './id';
 import { readPragma, removePragma } from './util';
-
+import METADATA_PRAGMAS from './pragmas';
 
 
 export default class Parser {
@@ -76,26 +76,26 @@ export default class Parser {
     parse(text) {
         resetIds();
         const doc = {
-            title: null,
-            rightTitle: null,
+            metadata: {},
             sections: [],
         };
 
         let pragma;
         while ( (pragma = readPragma(text)) !== null ) {
             const { name, content } = pragma;
-            if ( name === "title" ) {
-                doc.title = content;
-                text = removePragma("title", text);
-            } else if ( name === "right" ) {
-                doc.rightTitle = content;
-                text = removePragma("right", text);
-            } else if ( name === "section" ) {
+            if ( name === "section" ) {
                 break;
-            } else {
-                throw new Error(`Unexpected or unknown pragma: ${name}`);
             }
 
+            const pragmaDescription = METADATA_PRAGMAS[name];
+
+            if ( !pragmaDescription ) {
+                throw new Error(`Don't know how to handle '${name}'`);
+            }
+
+            doc.metadata[pragmaDescription.key] = pragmaDescription.parser(content);
+
+            text = removePragma(name, text);
             text = text.replace(/^\n+/, "");
         }
 
