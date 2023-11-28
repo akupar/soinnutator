@@ -8,6 +8,7 @@ import RenderRoot from './components/RenderRoot';
 import DoubleIndicator from './components/DoubleIndicator';
 import BaseNote from './components/BaseNote';
 import ExampleLink from './components/ExampleLink';
+import Help from './components/Help';
 
 import { initialCode } from './config';
 
@@ -241,9 +242,7 @@ function App() {
                         <Convention convention={inputConvention} setConvention={setInputConvention} />
                         <Editor code={code} setCode={setCode} />
                     </div>
-                    <div className="help">
-
-                    </div>
+                    <Help/>
                 </div>
             </ConventionContext.Provider>
         </div>
