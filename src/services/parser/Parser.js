@@ -57,7 +57,7 @@ export default class Parser {
         const phrases = text.split(/\n\n\n*/).filter(text => (text !== ""));
 
         if ( phrases.length === 0 ) {
-            return section;
+            return null;
         }
 
         const m = phrases[0].match(/^\n*#section ?(.*)/);
@@ -79,6 +79,8 @@ export default class Parser {
             metadata: {},
             sections: [],
         };
+
+        text = text.trim() + '\n';
 
         let pragma;
         while ( (pragma = readPragma(text)) !== null ) {
@@ -102,7 +104,10 @@ export default class Parser {
         const sections = text.split(/\n(?=#section)/);
 
         sections.forEach(sectionText => {
-	    doc.sections.push(this.parseSection(sectionText));
+            const sectionDoc = this.parseSection(sectionText)
+            if ( sectionDoc ) {
+	        doc.sections.push(sectionDoc);
+            }
         });
 
         return doc;
