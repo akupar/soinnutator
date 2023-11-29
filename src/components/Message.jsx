@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 let timeoutId;
 export default function Message({ message, setMessage }) {
@@ -10,7 +10,7 @@ export default function Message({ message, setMessage }) {
         }, 4000);
 
         return () => window.clearTimeout(timeoutId);
-    }, [title, body]);
+    }, [title, body, setMessage]);
 
     const display = (body ?? title) ? 'block' : 'none';
     return (

@@ -144,8 +144,7 @@ function App() {
         setParsed(parsed);
     };
 
-    useEffect(render, [inputConvention]);
-
+    useEffect(render, [inputConvention, code]);
 
     const loadExample = async (name) => {
         try {

@@ -1,5 +1,3 @@
-import Measure from './Measure';
-
 export default function Part({ text }) {
 
     return (

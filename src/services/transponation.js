@@ -244,7 +244,8 @@ const getChordMapping = (chords, amount, preferDir) => {
 };
 
 
-
-export default {
+const transponationFunctions = {
     getChordMapping: getChordMapping
 };
+
+export default transponationFunctions;

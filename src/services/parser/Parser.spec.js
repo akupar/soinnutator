@@ -1,3 +1,4 @@
+/* eslint-disable jest/valid-expect */
 import { expect, MultiLineString as lines } from "../../testconfig";
 
 import Parser  from './Parser';
@@ -205,7 +206,7 @@ describe("Parser", function () {
         });
 
 
-        it("parses phrases that appear outside section as a section with no title (multiple phrases)", function () {
+        it("parses phrases that appear outside section as a section with no title (multiline phrases)", function () {
             const parser = new Parser('');
             const text = lines(
                 '#section Test',

@@ -1,3 +1,4 @@
+/* eslint-disable jest/valid-expect */
 import { expect } from "../testconfig";
 
 import transponator from './transponation';

@@ -1,3 +1,4 @@
+/* eslint-disable jest/valid-expect */
 import { expect } from "../../testconfig";
 
 import { readPragma, removePragma }  from './util';
@@ -5,12 +6,12 @@ import { readPragma, removePragma }  from './util';
 
 describe("readPragma", function () {
 
-    it("reads pragmas with line of arguments", function () {
+    it("reads pragmas with line of argument", function () {
         const text = "#test sometext\n";
         expect(readPragma(text)).to.deep.equal({ name: "test", content: "sometext" });
     });
 
-    it("reads pragmas with line of arguments", function () {
+    it("reads pragmas with line of multiword argument", function () {
         const text = "#test this is the argument\n";
         expect(readPragma(text)).to.deep.equal({ name: "test", content: "this is the argument" });
     });

@@ -1,3 +1,5 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable no-lone-blocks */
 import { expect } from "../testconfig";
 
 import degreer from "./degree";

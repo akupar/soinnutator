@@ -1,3 +1,4 @@
+/* eslint-disable jest/valid-expect */
 import { expect } from "../../testconfig.js";
 
 import { parseLineGroup } from './lineGroup';

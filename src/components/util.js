@@ -21,7 +21,7 @@ export function getBarClass(barSymbol) {
             return "bar-2";
         case " ":
             return "bar-space";
+        default:
+            throw new Error("Tuntematon bar-symboli: " + barSymbol);
     }
-
-    throw new Error("Tuntematon bar-symboli: " + barSymbol);
 };

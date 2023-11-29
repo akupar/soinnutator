@@ -1,7 +1,8 @@
 /**
  * List of all top-level pragmas and what field to map them.
  */
-export default {
+
+const pragmas = {
     title: {
         key: 'title',
         parser: value => value.trim(),
@@ -15,3 +16,5 @@ export default {
         parser: value => value.split('|').map(item => item.trim()),
     }
 };
+
+export default pragmas;

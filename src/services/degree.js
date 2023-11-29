@@ -36,7 +36,7 @@ const values = {
     "C♭": { index: 11, pos: 0, d: -1 }
 };
 
-const degreesX = {
+const degrees = {
     "I": { index: 0, pos: 0, d: 0 },
     "I♯": { index: 1, pos: 0, d: +1 },
     "I𝄪": { index: 2, pos: 0, d: +2 },
@@ -75,21 +75,6 @@ const degreesX = {
 };
 
 
-const degrees = [
-    "I",
-    null,
-    "II",
-    null,
-    "III",
-    "IV",
-    null,
-    "V",
-    null,
-    "VI",
-    null,
-    "VII",
-];
-
 
 function union(...sets) {
     const output = new Set();
@@ -108,8 +93,8 @@ export function getNoteDegree(note, adjustIndex, adjustPos) {
     const index = ((noteValue.index - adjustIndex) % 12 + 12) % 12;
     const pos = ((noteValue.pos - adjustPos) % 7 + 7) % 7;
 
-    const keys = Object.keys(degreesX);
-    const i = keys.map(key => degreesX[key])
+    const keys = Object.keys(degrees);
+    const i = keys.map(key => degrees[key])
                   .findIndex(data => data.index === index && data.pos === pos);
     return keys[i];
 }
@@ -228,10 +213,12 @@ export function getChordMapping(chords, I=null) {
 
 }
 
-export default {
+const degreeFunctions ={
     getNoteDegree,
     getNoteMapping,
     getNoteMappings,
     getBestMapping,
     getChordMapping,
 };
+
+export default degreeFunctions;

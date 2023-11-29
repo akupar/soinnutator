@@ -112,6 +112,7 @@ class Chord {
             //throw new Error("Not a chord: >"+  text + "<");
         }
 
+        // eslint-disable-next-line no-unused-vars
         const [_, pre, letter, accidentalIn, post] = match;
         const accidental = accidentalIn === "#" ? "♯" :
                            (accidentalIn === "b" ? "♭" : accidentalIn)
