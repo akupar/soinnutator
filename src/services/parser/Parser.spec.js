@@ -205,6 +205,38 @@ describe("Parser", function () {
         });
 
 
+        it("parses phrases that appear outside section as a section with no title (multiple phrases)", function () {
+            const parser = new Parser('');
+            const text = lines(
+                '#section Test',
+                '',
+                'Am  | Em   | Dm  | Dm',
+                'Be- | bob- | ba  | lula',
+                '',
+                'Am  | Em   | Dm  | Dm',
+                'Be- | bob- | ba  | lula',
+            );
+
+            const doc = parser.parse(text);
+            expect(doc.sections.length).to.equal(1);
+            expect(doc.sections[0].title).to.equal('Test');
+            expect(doc.sections[0].phrases.length).to.equal(2);
+            expect(doc.sections[0].phrases[0].measures.length).to.equal(4);
+
+            const firstMeasure = doc.sections[0].phrases[0].measures[0];
+            const firstChord = firstMeasure.rows[0].data;
+            const firstWord = firstMeasure.rows[1].text;
+            expect(firstChord).to.deep.equal({
+                letter: 'A',
+                pre: '',
+                post: 'm'
+            });
+
+            expect(firstWord).to.deep.equal('Be-');
+
+        });
+
+
     });
 
 });
