@@ -1,18 +1,12 @@
 import Section from './Section';
 import Structure from './Structure';
+import SongTitle from './SongTitle';
 
 export default function RenderRoot({ doc, fontSize }) {
     const fontSizePercent = (fontSize * 100) + "%";
     return (
         <div className='rendered' style={{ fontSize: fontSizePercent }}>
-            <h1>
-                { doc.metadata?.title || "[Untitled]" }
-                {
-                    doc.metadata?.rightTitle && <span className="right">
-                        { doc.metadata.rightTitle }
-                    </span>
-                }
-            </h1>
+            <SongTitle doc={ doc }/>
             {
                 doc.metadata?.structure && <Structure parts={doc.metadata.structure}/>
             }
