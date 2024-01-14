@@ -21,6 +21,8 @@ import './App.css';
 import './render.css';
 import './columns.css';
 
+const initialTitle = document.title;
+
 function getChords(parsed) {
     const chords = new Set();
     if ( !parsed.sections ) {
@@ -141,10 +143,18 @@ function App() {
     const render = () => {
         const parser = new Parser(inputConvention);
         const parsed = parser.parse(code);
+        if ( parsed && parsed.metadata ) {
+            if ( parsed.metadata.title && parsed.metadata.rightTitle ) {
+                document.title = parsed.metadata.title + " — " + parsed.metadata.rightTitle;
+            } else {
+                document.title = parsed.metadata.title ?? parsed.metadata.rightTitle ?? initialTitle;
+            }
+        }
         setParsed(parsed);
     };
 
     useEffect(render, [inputConvention, code]);
+
 
     const loadExample = async (name) => {
         try {
