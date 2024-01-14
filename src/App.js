@@ -69,6 +69,14 @@ function getNotes(chords) {
     return Array.from(notes);
 }
 
+function makeTitle(metadata) {
+    if ( metadata.title && metadata.rightTitle ) {
+        return metadata.title + " — " + metadata.rightTitle;
+    } else {
+        return metadata.title ?? metadata.rightTitle;
+    }
+}
+
 
 function App() {
     const [code, setCode] = useState(initialCode);
@@ -83,6 +91,7 @@ function App() {
     const [doubleFlatIndicator, setDoubleFlatIndicator] = useState(false);
     const [transponationMapping, setTransponationMapping] = useState({});
     const [mapping, setMapping] = useState({});
+    const [documentTitle, setDocumentTitle] = useState(null);
 
     useEffect(() => {
         if ( parsed.title && parsed.rightTitle ) {
@@ -142,19 +151,22 @@ function App() {
 
     const render = () => {
         const parser = new Parser(inputConvention);
-        const parsed = parser.parse(code);
-        if ( parsed && parsed.metadata ) {
-            if ( parsed.metadata.title && parsed.metadata.rightTitle ) {
-                document.title = parsed.metadata.title + " — " + parsed.metadata.rightTitle;
-            } else {
-                document.title = parsed.metadata.title ?? parsed.metadata.rightTitle ?? initialTitle;
+        try {
+            const parsed = parser.parse(code);
+            if ( parsed && parsed.metadata ) {
+                setDocumentTitle(makeTitle(parsed.metadata));
             }
+            setParsed(parsed);
+        } catch ( err ) {
+            setMessage({ type: 'error', title: 'Parser error', body: String(err) });
         }
-        setParsed(parsed);
     };
 
     useEffect(render, [inputConvention, code]);
 
+    useEffect(() => {
+        document.title = documentTitle ?? initialTitle;
+    }, [documentTitle]);
 
     const loadExample = async (name) => {
         try {
