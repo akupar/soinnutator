@@ -79,7 +79,7 @@ function makeTitle(metadata) {
 
 
 function App() {
-    const [code, setCode] = useState(initialCode);
+    const [code, setCode] = useState(JSON.parse(localStorage.getItem('code')) ?? initialCode);
     const [parsed, setParsed] = useState({});
     const [message, setMessage] = useState({});
     const [fontSize, setFontSize] = useState(1.0);
@@ -150,6 +150,7 @@ function App() {
     }, [outputConvention, key, transponationMapping, parsed]);
 
     const render = () => {
+        localStorage.setItem('code', JSON.stringify(code));
         const parser = new Parser(inputConvention);
         try {
             const parsed = parser.parse(code);
